@@ -1,0 +1,167 @@
+{
+  "applicants": [
+    {
+      "id": 1,
+      "business_id": 1,
+      "name": "Heber",
+      "lastname": "Cordova",
+      "email": "hbcordova@gmail.com",
+      "password": "123456",
+      "photo": "https://img.freepik.com/foto-gratis/concepto-emociones-personas-foto-cabeza-hombre-atractivo-feliz-riendo-sonriendo-expresa-regocijo-fondo-blanco_1258-34795.jpg"
+    },
+    {
+      "id": 2,
+      "business_id": 2,
+      "name": "Elizabeth",
+      "lastname": "Nina",
+      "email": "elizabethnina@gmail.com",
+      "password": "123456",
+      "photo": "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg"
+    }
+  ],
+  "announcements": [
+    {
+      "id": 1,
+      "applicant_id": 1,
+      "title": "Se busca programador en Front-end",
+      "description": "Buen clima laboral y excelente paga",
+      "salary": 1500,
+      "type-money": "PEN",
+      "date": "2022-04-27",
+      "visible": false
+    },
+    {
+      "id": 2,
+      "applicant_id": 2,
+      "title": "Se busca programador en Back-end",
+      "description": "Buen clima laboral.",
+      "salary": 2200,
+      "type-money": "PEN",
+      "date": "2022-04-27",
+      "visible": true
+    }
+  ],
+  "postulants": [
+    {
+      "id": "1",
+      "name": "Sebastian",
+      "lastname": "Gutierrez",
+      "description": "Me considero una persona responsable y trabajadora.",
+      "email": "sebastian@gmail.com",
+      "password": "123456",
+      "github_user": "hbcord",
+      "photo": "https://www.crushpixel.com/big-static11/preview4/smiling-man-front-group-people-676322.jpg"
+    },
+    {
+      "id": "2",
+      "name": "John",
+      "lastname": "Brand",
+      "description": "Me considero una persona responsable y trabajadora.",
+      "email": "jhon@gmail.com",
+      "password": "123456",
+      "github_user": "hbcordova",
+      "photo": "https://st4.depositphotos.com/1049680/i/600/depositphotos_287770354-stock-photo-handsome-man-smiling-cheerful-with.jpg"
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "postulant_id": 1,
+      "announcement_id": 1,
+      "state": "accepted",
+      "date": "2022-04-27"
+    },
+    {
+      "id": 2,
+      "postulant_id": 2,
+      "announcement_id": 2,
+      "state": "denied",
+      "date": "2022-04-27"
+    },
+    {
+      "id": 3,
+      "postulant_id": 2,
+      "announcement_id": 2,
+      "state": "pending",
+      "date": "2022-04-27"
+    }
+  ],
+  "business": [
+    {
+      "id": 1,
+      "name": "Claro Perú SAC",
+      "description": "Empresa de telefonia internacional.",
+      "ruc": "789765432",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Claro.svg",
+      "website": "https://www.claro.com.pe/personas/"
+    },
+    {
+      "id": 2,
+      "name": "Movistar Perú SAC",
+      "description": "Empresa española de telefonia.",
+      "ruc": "789765412",
+      "photo": "https://contigo.movistar.com.pe/assets_client/media/logos/logo-movistar.png",
+      "website": "https://movistarhogar.pe/"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "postulant_id": 1,
+      "title": "Blog de Cafe",
+      "description": "Pagina realizada con html y css",
+      "url": "https://github.com/hbcord/Blog-De-Caf-",
+      "photo": "https://josefacchin.com/wp-content/uploads/2021/05/crear-un-blog-gratis.png"
+    },
+    {
+      "id": 2,
+      "postulant_id": 2,
+      "title": "Tienda Virtual",
+      "description": "Tienda de ropa realizada con html y css",
+      "url": "https://github.com/hbcord/TiendaVirtual",
+      "photo": "https://phantom-telva.unidadeditorial.es/834cbdecd7feb5e11997245bea86ac92/crop/0x137/1998x1258/resize/828/f/jpg/assets/multimedia/imagenes/2020/11/11/16050829163655.jpg"
+    }
+  ],
+  "evidences": [
+    {
+      "id": 1,
+      "project_id": 2,
+      "title": "Capture 1",
+      "description": "Vista seccion home de la pagina",
+      "photo": "https://www.emprendedores.es/wp-content/uploads/2020/03/plan-de-negocio-para-montar-una-tienda-de-ropa.jpg"
+    },
+    {
+      "id": 2,
+      "project_id": 1,
+      "title": "Capture 1",
+      "description": "Vista seccion home de la pagina",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/640px-A_small_cup_of_coffee.JPG"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "postulant_id": 1,
+      "announcement_id": 1,
+      "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
+      "description": "Fuiste elegido por Heber Cordova para Claro SAC",
+      "date": "2022-04-27"
+    },
+    {
+      "id": 2,
+      "postulant_id": 2,
+      "announcement_id": 2,
+      "title": "Has aplicado para: Se busca programador en Back-end",
+      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
+      "date": "2022-04-27"
+    },
+    {
+      "id": 3,
+      "applicant_id": 2,
+      "postulant_id": 1,
+      "title": "Has aplicado para: Se busca programador en Back-end",
+      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
+      "date": "2022-04-27"
+    }
+  ]
+}
