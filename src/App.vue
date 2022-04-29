@@ -1,20 +1,23 @@
 <template>
   <v-app :theme="theme" class="scroll overflow-hidden">
     <v-main>
-      <applicant-announcement></applicant-announcement>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
 
-import ApplicantAnnouncement from "@/applicants/pages/applicant-announcement";
 export default {
   name: 'App',
-  components: {ApplicantAnnouncement},
+  components: {},
   data: () => ({
-    theme: 'darkTheme' //darkTheme lightTheme
+    theme: 'lightTheme' //darkTheme lightTheme
   }),
+  methods: {
+  },
+  mounted() {
+  }
 }
 </script>
 

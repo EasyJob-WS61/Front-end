@@ -7,7 +7,12 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve --port 8080
+```
+
+### Run json-server
+```
+json-server db.json --routes routes.json --port 3000
 ```
 
 ### Compiles and minifies for production

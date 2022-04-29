@@ -9,6 +9,9 @@ class CustomersService {
     getById(id) {
         return http.get(`${this.resource}/${id}`);
     }
+    getByApplicantId(id) {
+        return http.get(`${this.resource}?applicant_id=${id}`);
+    }
     create(createAnnouncementDto) {
         return http.post(this.resource, createAnnouncementDto);
     }

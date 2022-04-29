@@ -11,7 +11,9 @@
         <v-row>
           <v-col cols="10">
             <p>{{announcement.date}}</p>
-            <v-card-title>{{announcement.title}}</v-card-title>
+            <a @click="goToAnnouncementDetail(announcement.id)">
+              <v-card-title>{{announcement.title}}</v-card-title>
+            </a>
             <p>{{announcement.description}}</p>
           </v-col>
           <v-col cols="2">
@@ -19,27 +21,29 @@
           </v-col>
         </v-row>
         <v-card-actions class="d-flex justify-end my-2">
-          <v-btn elevation="1" class="rounded-lg btn-delete">Eliminar Anuncio</v-btn>
+          <v-btn @click="deleteAnnouncement(announcement.id)" elevation="1" class="rounded-lg btn-delete">Eliminar Anuncio</v-btn>
         </v-card-actions>
       </v-card>
       <v-btn
           color="primary"
           elevation="2"
           icon
-          x-large
           fab
           fixed
           bottom
           right
+          size="x-large"
           class="position-absolute ma-6"
+          @click="goToAnnouncementAdd"
       ><v-icon size="24px" class="text-white">mdi-plus</v-icon></v-btn>
     </v-col>
   </row>
 </template>
 
 <script>
-import ApplicantNavigation from "@/applicants/pages/applicant-navigation";
 import AnnouncementService from "@/applicants/services/applicants.announcement.service";
+import router from "@/router";
+import ApplicantNavigation from "@/applicants/pages/applicant-navigation";
 export default {
   name: "applicant-announcement",
   components: {ApplicantNavigation},
@@ -48,7 +52,7 @@ export default {
   }),
   methods: {
     async getAnnouncements() {
-      await AnnouncementService.getAll()
+      await AnnouncementService.getByApplicantId(this.$route.params.idUser)
           .then(response => {
             this.announcements = response.data;
             console.log(response.data)
@@ -57,6 +61,23 @@ export default {
             this.errors.push(e.message);
           });
     },
+    goToAnnouncementAdd() {
+      router.push({ name: 'applicant-announcement-add', params: { idUser: this.$route.params.idUser}})
+    },
+    goToAnnouncementDetail(id) {
+      router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id} })
+    },
+    async deleteAnnouncement(id) {
+      await AnnouncementService.delete(id)
+          .then(response => {
+            console.log(response.data)
+          })
+          .catch(e => {
+            this.errors.push(e.message);
+          });
+      await this.getAnnouncements();
+    }
+
   },
   mounted() {
     this.getAnnouncements();
