@@ -39,6 +39,26 @@
       "type-money": "PEN",
       "date": "2022-04-27",
       "visible": true
+    },
+    {
+      "id": 3,
+      "applicant_id": 1,
+      "title": "Se busca programador en Front-end",
+      "description": "Buen clima laboral y excelente paga",
+      "salary": 1500,
+      "type-money": "PEN",
+      "date": "2022-04-27",
+      "visible": false
+    },
+    {
+      "id": 4,
+      "applicant_id": 2,
+      "title": "Se busca programador en Back-end",
+      "description": "Buen clima laboral.",
+      "salary": 2200,
+      "type-money": "PEN",
+      "date": "2022-04-27",
+      "visible": true
     }
   ],
   "postulants": [
