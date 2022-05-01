@@ -1,5 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SignInSolicitante from '../signs-in/pages/sign-in-solicitante.vue'
+import AnunciosPostulantes from './../anuncios-postulantes/pages/AnunciosPostulante.vue'
+import DetallesAnuncio from '../anuncios-postulantes/pages/DetallesAnuncio.vue'
 
 const routes = [
   {
@@ -14,6 +17,21 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: SignInSolicitante
+  }, 
+  {
+    path: '/anuncios-postulantes',
+    name: 'anuncios-postulantes',
+    component: AnunciosPostulantes
+  },
+  {
+    path: '/detalles-anuncio',
+    name: 'detalles-anuncio',
+    component: DetallesAnuncio
   }
 ]
 

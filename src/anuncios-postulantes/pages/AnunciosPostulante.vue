@@ -186,7 +186,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "AnunciosPostulantes",
 
   data: () => ({
     rules: [(value) => !!value || "Required."],
@@ -203,7 +203,10 @@ export default {
   width: 100vw;
   min-height: 100vh;
   height: auto;
-  background-image: url("../core/img/BACKGROUND.png");
+  background-image: url("https://i.pinimg.com/564x/90/61/74/906174f7d18a56bf917a232e65e6bf8f.jpg") !important;
+   background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .container {
   width: 100%;
@@ -238,11 +241,11 @@ export default {
   padding: 2px 20px;
   margin: 0.5rem 0px;
 }
-.containter-anuncio h2{
-  color:#01C4FF;
+.containter-anuncio h2 {
+  color: #01c4ff;
 }
-.containter-anuncio p{
-  color:#747373;
+.containter-anuncio p {
+  color: #747373;
 }
 .flex-end {
   display: flex;
@@ -254,8 +257,8 @@ export default {
   display: flex;
   justify-content: center;
 }
-.img-post img{
+.img-post img {
   width: 100%;
-  max-width:100% !important;
+  max-width: 100% !important;
 }
 </style>
