@@ -2,98 +2,65 @@
   "applicants": [
     {
       "id": 1,
-      "business_id": 1,
-      "name": "Heber",
-      "lastname": "Cordova",
-      "email": "hbcordova@gmail.com",
-      "password": "123456",
-      "photo": "https://img.freepik.com/foto-gratis/concepto-emociones-personas-foto-cabeza-hombre-atractivo-feliz-riendo-sonriendo-expresa-regocijo-fondo-blanco_1258-34795.jpg"
+      "name": "Claro Perú SAC",
+      "description": "Empresa de telefonia internacional.",
+      "ruc": "789765432",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Claro.svg",
+      "website": "https://www.claro.com.pe/personas/",
+      "email": "claro@gmail.com",
+      "password": "123456"
     },
     {
       "id": 2,
-      "business_id": 2,
-      "name": "Elizabeth",
-      "lastname": "Nina",
-      "email": "elizabethnina@gmail.com",
-      "password": "123456",
-      "photo": "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg"
+      "name": "Movistar Perú SAC",
+      "description": "Empresa española de telefonia.",
+      "ruc": "789765412",
+      "photo": "https://contigo.movistar.com.pe/assets_client/media/logos/logo-movistar.png",
+      "website": "https://movistarhogar.pe/",
+      "email": "movistar@gmail.com",
+      "password": "123456"
     }
   ],
   "announcements": [
     {
-      "id": 2,
-      "applicant_id": 2,
-      "title": "Se busca programador en Back-end",
-      "description": "Buen clima laboral.",
-      "salary": 2200,
-      "type-money": "PEN",
-      "date": "2022-04-27",
-      "visible": true
-    },
-    {
-      "title": "Hpña",
-      "description": "sadfa",
-      "salary": "20",
-      "categories": [
-        "Gaming"
-      ],
+      "applicantId": "1",
+      "title": "Este es un anuncio",
+      "description": "Esta es la descripcion",
+      "salary": "5000",
+      "date": "5/1/2022",
+      "visible": true,
+      "ability": "Programacion con Python",
       "id": 3
     },
     {
-      "applicantId": null,
-      "title": "Primer An",
-      "description": "asd",
-      "salary": "1200",
-      "date": "5/1/2022",
-      "visible": true,
-      "id": 4
-    },
-    {
       "applicantId": "1",
-      "title": "ad",
-      "description": "ad",
-      "salary": "200",
+      "title": "Tercer anuncio",
+      "description": "asd",
+      "salary": "5000",
       "date": "5/1/2022",
       "visible": true,
+      "ability": "Programacion con C++",
       "id": 5
     },
     {
-      "applicant_id": null,
-      "title": "asd",
-      "description": "asd",
-      "salary": "2000",
+      "applicantId": "1",
+      "title": "Cuarto anuncio",
+      "description": "adf",
+      "salary": "5000",
       "date": "5/1/2022",
       "visible": true,
-      "applicantId": "1",
+      "ability": "Programacion Web",
       "id": 6
     },
     {
-      "applicant_id": null,
+      "applicantId": "1",
       "title": "asd",
       "description": "asd",
-      "salary": "2000",
+      "salary": "200",
       "date": "5/1/2022",
       "visible": true,
-      "applicantId": "1",
+      "ability": "Programacion con Python",
       "id": 7
-    },
-    {
-      "applicant_id": "1",
-      "title": "Este sera mi anuncio",
-      "description": "Esta es una prueba",
-      "salary": "2000",
-      "date": "5/1/2022",
-      "visible": true,
-      "id": 8
-    },
-    {
-      "applicant_id": "1",
-      "title": "asd",
-      "description": "ad",
-      "salary": "13",
-      "date": "5/1/2022",
-      "visible": true,
-      "id": 9
     }
   ],
   "postulants": [
@@ -118,47 +85,7 @@
       "photo": "https://st4.depositphotos.com/1049680/i/600/depositphotos_287770354-stock-photo-handsome-man-smiling-cheerful-with.jpg"
     }
   ],
-  "applications": [
-    {
-      "id": 1,
-      "postulant_id": 1,
-      "announcement_id": 1,
-      "state": "accepted",
-      "date": "2022-04-27"
-    },
-    {
-      "id": 2,
-      "postulant_id": 2,
-      "announcement_id": 2,
-      "state": "denied",
-      "date": "2022-04-27"
-    },
-    {
-      "id": 3,
-      "postulant_id": 2,
-      "announcement_id": 2,
-      "state": "pending",
-      "date": "2022-04-27"
-    }
-  ],
-  "business": [
-    {
-      "id": 1,
-      "name": "Claro Perú SAC",
-      "description": "Empresa de telefonia internacional.",
-      "ruc": "789765432",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Claro.svg",
-      "website": "https://www.claro.com.pe/personas/"
-    },
-    {
-      "id": 2,
-      "name": "Movistar Perú SAC",
-      "description": "Empresa española de telefonia.",
-      "ruc": "789765412",
-      "photo": "https://contigo.movistar.com.pe/assets_client/media/logos/logo-movistar.png",
-      "website": "https://movistarhogar.pe/"
-    }
-  ],
+  "applications": [],
   "projects": [
     {
       "id": 1,
@@ -217,6 +144,28 @@
       "title": "Has aplicado para: Se busca programador en Back-end",
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
       "date": "2022-04-27"
+    }
+  ],
+  "abilities": [
+    {
+      "id": 1,
+      "name": "Programacion con C++",
+      "description": "Programacion usando el lenguaje c++."
+    },
+    {
+      "id": 2,
+      "name": "Programacion con Python",
+      "description": "Programacion usando el lenguaje python."
+    },
+    {
+      "id": 3,
+      "name": "Programacion Web",
+      "description": "Programacion usando html, css y javascript"
+    },
+    {
+      "id": 4,
+      "name": "Programacion Back-end con c# y asp.net",
+      "description": "Programacion de una API usando c# y asp.net"
     }
   ]
 }

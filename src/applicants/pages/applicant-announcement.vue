@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="position-relative">
     <div>
       <v-card class="py-2 mb-4">
         <p class="font-weight-bold text-h5 text-uppercase text-center primary">Mis Anuncios</p>
@@ -7,7 +7,7 @@
       <v-card v-for="(announcement, key) in announcements" v-bind:key="key" class="pa-4 mb-3">
         <v-row>
           <v-col cols="2" class="d-flex justify-center align-center">
-            <v-img width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Claro.svg/1741px-Claro.svg.png"></v-img>
+            <v-img width="100px" :src="applicant.photo"></v-img>
           </v-col>
           <v-col cols="10" class="d-flex flex-column justify-center">
             <div class="d-flex justify-end">
@@ -19,7 +19,9 @@
             <v-card-subtitle>{{announcement.description}}</v-card-subtitle>
             <v-card-subtitle>S/. {{announcement.salary}}</v-card-subtitle>
             <v-card-actions class="d-flex">
-              <v-btn color="warning" class="rounded-lg">
+              <v-btn color="warning"
+                     @click="this.dialogAnnouncementEdit = !this.dialogAnnouncementEdit; this.selectAnnouncementId = announcement.id"
+                     class="rounded-lg">
                 <v-icon left class="pr-2">mdi-pencil</v-icon>Editar
               </v-btn>
               <v-btn color="error" @click="processDeleted(key)" class="rounded-lg">
@@ -34,7 +36,7 @@
             transition="dialog-bottom-transition"
             v-model="confirmDeleted"
             persistent>
-          <v-card width="500px" class="px-4 py-8 d-flex flex-column justify-center align-center">
+          <v-card max-width="600px" width="90vw" height="auto" max-height="900px" class="px-4 py-8 d-flex flex-column justify-center align-center">
             <div class="">
               <v-card-subtitle>¿Esta seguro que desea eliminar
                 <span class="error pl-1">{{announcementSelected.title}}</span>?
@@ -48,6 +50,7 @@
           </v-card>
         </v-dialog>
       </template>
+      <!--Button add announcement -->
       <v-btn
           color="primary"
           elevation="2"
@@ -57,17 +60,29 @@
           bottom
           right
           size="x-large"
-          class="position-absolute ma-6"
+          class="position-fixed ma-6"
           @click="goToAnnouncementAdd"
       ><v-icon size="24px" class="text-white">mdi-plus</v-icon></v-btn>
+
       <v-dialog
           transition="dialog-bottom-transition"
           v-model="dialogAnnouncementAdd"
           persistent>
         <applicant-announcement-add
             v-on:closeAnnouncementAdd="dialogAnnouncementAdd = !dialogAnnouncementAdd"
-            v-on:update:announcements="addAnnouncement($event)"
+            v-on:create:announcements="addAnnouncement($event)"
         ></applicant-announcement-add>
+      </v-dialog>
+
+      <v-dialog
+          transition="dialog-bottom-transition"
+          v-model="dialogAnnouncementEdit"
+          persistent>
+        <applicant-announcement-edit
+            v-bind:id-announcement="selectAnnouncementId"
+            v-on:closeAnnouncementEdit="dialogAnnouncementEdit = !dialogAnnouncementEdit"
+            v-on:update:announcements="updateAnnouncement($event)"
+        ></applicant-announcement-edit>
       </v-dialog>
     </div>
   </v-container>
@@ -75,16 +90,23 @@
 
 <script>
 import AnnouncementService from "@/applicants/services/applicants.announcement.service";
-import router from "@/router";
 import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add";
+import ApplicantService from "@/applicants/services/applicants.service"
+import router from "@/router";
+import ApplicantAnnouncementEdit from "@/applicants/pages/applicant-announcement-edit";
 export default {
   name: "applicant-announcement",
-  components: {ApplicantAnnouncementAdd},
+  components: {ApplicantAnnouncementEdit, ApplicantAnnouncementAdd},
   data: () => ({
     announcements: [],
+    selectAnnouncementId: null,
+    applicant: {},
     announcementSelected: {},
     dialogAnnouncementAdd: false,
+    dialogAnnouncementEdit: false,
     confirmDeleted: false,
+    errors: [],
+    idUser: 1,
   }),
   methods: {
     async getAnnouncements() {
@@ -101,7 +123,7 @@ export default {
       this.dialogAnnouncementAdd = !this.dialogAnnouncementAdd;
     },
     goToAnnouncementDetail(id) {
-      router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id} })
+      router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id}})
     },
     async deleteAnnouncement(id, key) {
       console.log(key);
@@ -115,8 +137,29 @@ export default {
             this.errors.push(e.message);
           });
     },
+    async getApplicant(id) {
+      await ApplicantService.getById(id)
+          .then(response => {
+            this.applicant = response.data;
+          })
+          .catch(error => {
+            this.errors.push(error);
+          });
+    },
     addAnnouncement($event) {
       this.announcements.push($event);
+    },
+    updateAnnouncement($event) {
+      this.announcements.forEach(announcement => {
+        if (announcement.id === $event.id)  {
+          announcement.title = $event.title;
+          announcement.description = $event.description;
+          announcement.salary = $event.salary;
+          announcement.visible = $event.visible;
+          announcement.ability = $event.ability;
+        }
+        return 0;
+      })
     },
     processDeleted(key) {
       this.announcementSelected = this.announcements[key];
@@ -126,6 +169,7 @@ export default {
   },
   mounted() {
     this.getAnnouncements();
+    this.getApplicant(this.idUser);
   }
 }
 </script>

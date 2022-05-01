@@ -1,10 +1,9 @@
 <template>
-  <v-card max-width="600px" width="90vw" height="100vh" max-height="900px" class="overflow-y-auto">
-    <div>
-      <v-toolbar color="secondary">
-        <v-card-title class="text-white">Agregar Anuncio</v-card-title>
-      </v-toolbar>
-    </div>
+  <v-card max-width="600px" width="90vw" height="100vh" max-height="900px">
+    <v-toolbar color="secondary">
+      <v-card-title class="text-white">Editar Anuncio</v-card-title>
+    </v-toolbar>
+
     <v-card-content class="pa-8">
       <v-form
           ref="form"
@@ -36,13 +35,13 @@
               v-model="announcement.salary"
           ></v-text-field>
           <v-select
-              v-model="select"
+              v-model="announcement.ability"
               :items="items"
               :rules="[v => !!v || 'Abilidad es requerida']"
               label="Seleccione un etiqueta"
               required
           ></v-select>
-          <v-checkbox v-model="checkbox">
+          <v-checkbox v-model="announcement.visible">
             <template v-slot:label>
               <div>Este anuncio sera visible</div>
             </template>
@@ -51,8 +50,8 @@
         <div>
           <v-divider></v-divider>
           <v-card-actions class="d-flex justify-end">
-            <v-btn color="error" @click="closeAnnouncementAdd">Cerrar</v-btn>
-            <v-btn color="secondary" @click="registerAnnouncementAdd">Registrar</v-btn>
+            <v-btn color="error" @click="closeAnnouncementEdit">Cerrar</v-btn>
+            <v-btn color="secondary" @click="editAnnouncementAdd">Editar</v-btn>
           </v-card-actions>
         </div>
       </v-form>
@@ -64,10 +63,11 @@
 import router from "@/router";
 import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
 import UtilitiesService from "@/applicants/services/utilities.service";
+
 export default {
-  name: "applicant-announcement-add",
-  components: {},
+  name: "applicant-announcement-edit",
   props: {
+    idAnnouncement: Number,
     dialogAnnouncementAdd: Boolean
   },
   data: () => ({
@@ -78,14 +78,7 @@ export default {
     titleRules: [ v => !!v || 'Title is required', v => (v && v.length <= 50) || 'Title must be less than 50 characters'],
     descriptionRules: [ v => !!v || 'Description is required', v => (v && v.length <= 200) || 'Description must be less than 200 characters'],
     salaryRules: [v => !!v || 'Salary is required', v => (v && v > 0) || 'Salary must be major than 0'],
-    announcement: {
-      applicantId: null,
-      title: '',
-      description: '',
-      salary: null,
-      date: null,
-      visible: null
-    },
+    announcement: {},
     items: [],
     select: null,
     search: null,
@@ -94,25 +87,25 @@ export default {
     backToAnnouncement() {
       router.push({ name: 'applicant-announcement', params: {idUser: this.$route.params.idUser} })
     },
-    closeAnnouncementAdd() {
-      this.$emit('closeAnnouncementAdd');
+    closeAnnouncementEdit() {
+      this.$emit('closeAnnouncementEdit');
     },
-    async registerAnnouncementAdd() {
+    async getAnnouncement() {
+      ApplicantsAnnouncementService.getById(this.idAnnouncement)
+          .then(response =>  {
+            this.announcement = response.data;
+          })
+          .catch(error => {
+            this.errors.push(error);
+          })
+    },
+    async editAnnouncementAdd() {
       this.$refs.form.validate()
       if (this.validate) {
-
-        const time = Date.now();
-        const today = new Date(time);
-
-        this.announcement.applicantId = this.idUser;
-        this.announcement.visible = this.checkbox;
-        this.announcement.ability = this.select;
-        this.announcement.date = today.toLocaleDateString();
-
-        await ApplicantsAnnouncementService.create(this.announcement)
+        await ApplicantsAnnouncementService.update(this.announcement.id ,this.announcement)
             .then(response => {
-              this.$emit("create:announcements", response.data);
-              this.closeAnnouncementAdd();
+              this.$emit("update:announcements", response.data);
+              this.closeAnnouncementEdit();
             })
             .catch(error => {
               this.errors.push(error);
@@ -146,39 +139,13 @@ export default {
   mounted() {
     this.idUser = this.$route.params.idUser;
     this.getUtilities();
+    this.getAnnouncement();
   }
 }
 </script>
 
 <style scoped>
-@media (max-height: 768px) {
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
-.background {
-  background-image: url("../../core/img/BACKGROUND.png");
-  background-size: cover;
-}
-.bg-secondary{
-  background-color: #02EDB3;
-}
 .height-100 {
   height: 100%;
-}
-.max-wight-100 {
-  min-height: 100vh;
-  height: 100vh;
-  box-sizing: border-box;
-}
-.btn-delete {
-  background-color: #02EDB3;
-  color: white;
-}
-.btn-delete:hover {
-  background-color: #FF5A5A;
-}
-.primary {
-  color: #01C4FF;
 }
 </style>
