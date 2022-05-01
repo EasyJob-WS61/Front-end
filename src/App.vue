@@ -1,6 +1,7 @@
 <template>
   <v-app :theme="theme" class="scroll overflow-hidden">
     <v-main>
+      <postulant-navegation></postulant-navegation>
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -8,9 +9,10 @@
 
 <script>
 
+import PostulantNavegation from "@/postulants/pages/postulant-navegation";
 export default {
   name: 'App',
-  components: {},
+  components: {PostulantNavegation},
   data: () => ({
     theme: 'lightTheme' //darkTheme lightTheme
   }),

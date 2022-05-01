@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "dialog": "^0.3.1",
+    "moment": "^2.29.3",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-modal-dialogs": "^3.0.0",
