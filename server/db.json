@@ -21,16 +21,6 @@
   ],
   "announcements": [
     {
-      "id": 1,
-      "applicant_id": 1,
-      "title": "Se busca programador en Front-end",
-      "description": "Buen clima laboral y excelente paga",
-      "salary": 1500,
-      "type-money": "PEN",
-      "date": "2022-04-27",
-      "visible": false
-    },
-    {
       "id": 2,
       "applicant_id": 2,
       "title": "Se busca programador en Back-end",
@@ -39,6 +29,71 @@
       "type-money": "PEN",
       "date": "2022-04-27",
       "visible": true
+    },
+    {
+      "title": "Hpña",
+      "description": "sadfa",
+      "salary": "20",
+      "categories": [
+        "Gaming"
+      ],
+      "id": 3
+    },
+    {
+      "applicantId": null,
+      "title": "Primer An",
+      "description": "asd",
+      "salary": "1200",
+      "date": "5/1/2022",
+      "visible": true,
+      "id": 4
+    },
+    {
+      "applicantId": "1",
+      "title": "ad",
+      "description": "ad",
+      "salary": "200",
+      "date": "5/1/2022",
+      "visible": true,
+      "id": 5
+    },
+    {
+      "applicant_id": null,
+      "title": "asd",
+      "description": "asd",
+      "salary": "2000",
+      "date": "5/1/2022",
+      "visible": true,
+      "applicantId": "1",
+      "id": 6
+    },
+    {
+      "applicant_id": null,
+      "title": "asd",
+      "description": "asd",
+      "salary": "2000",
+      "date": "5/1/2022",
+      "visible": true,
+      "applicantId": "1",
+      "id": 7
+    },
+    {
+      "applicant_id": "1",
+      "title": "Este sera mi anuncio",
+      "description": "Esta es una prueba",
+      "salary": "2000",
+      "date": "5/1/2022",
+      "visible": true,
+      "id": 8
+    },
+    {
+      "applicant_id": "1",
+      "title": "asd",
+      "description": "ad",
+      "salary": "13",
+      "date": "5/1/2022",
+      "visible": true,
+      "id": 9
     }
   ],
   "postulants": [

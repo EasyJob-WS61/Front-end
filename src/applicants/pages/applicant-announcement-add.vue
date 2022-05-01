@@ -1,102 +1,141 @@
 <template>
-  <v-container>
-    <v-card width="100%" class="px-8 py-4">
-      <v-card-title class="font-weight-bold primary pl-0 pb-4 text-center">Agregar Anuncio</v-card-title>
-      <v-card-subtitle class="font-weight-bold primary pl-0 pb-4">Titulo</v-card-subtitle>
-      <v-text-field label="Ingrese el titulo" clearable type="text" variant="contained"></v-text-field>
-      <v-card-subtitle class="font-weight-bold primary pl-0 pb-4">Descripcion</v-card-subtitle>
-      <v-textarea solo name="input-7-4" label="Description"></v-textarea>
-      <v-card-subtitle class="font-weight-bold primary pl-0 pb-4">Salary</v-card-subtitle>
-      <div class="d-flex">
-        <v-text-field
-            label="Monto"
-            prefix="S/."
-        ></v-text-field>
-      </div>
-      <v-spacer></v-spacer>
-      <v-card-subtitle class="font-weight-bold primary pl-0 pb-4">Categorias</v-card-subtitle>
-      <v-row class="my-8">
-        <v-col cols="12" class="v-col-sm-5">
-          <v-autocomplete
-              hide-details
-              v-model="specialtyValue"
-              :items="specialtyItems"
-              dense
-              readonly
-              filled
-              class="pr-4"
-              label="Specialty"
-          ></v-autocomplete>
-        </v-col>
-        <v-col cols="12" class="v-col-sm-5">
-          <v-autocomplete
-              hide-details
-              v-model="experienceValue"
-              readonly
-              :items="experienceItems"
-              dense
-              filled
-              class="pr-4"
-              label="Experience"
-          ></v-autocomplete>
-        </v-col>
-        <v-col cols="12" class="v-col-sm-2 d-flex justify-center align-center">
-          <v-btn width="100%" x-large class="mr-4 mb-0" @click="addSpecialties">Agregar</v-btn>
-        </v-col>
-        <v-col cols="12">
-          <div class="v-col-4"
-               v-for="(ability, index) in abilitiesItems" v-bind:key="index">
-            <div class="bg-secondary text-center text-white rounded-lg wight-90">
-              <p class="font-weight-bold">{{ability.specialty}}</p>
-              <p class="font-italic">{{ability.experience}}</p>
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-      <div class="d-flex justify-end">
-        <v-btn flat color="primary" size="x-large" class="text-white">Publicar</v-btn>
-      </div>
-    </v-card>
-  </v-container>
+  <v-card width="600px" height="100vh">
+    <v-toolbar color="secondary">
+      <v-card-title class="text-white">Agregar Anuncio</v-card-title>
+    </v-toolbar>
 
+    <v-card-content class="pa-8">
+      <v-form
+          ref="form"
+          v-model="validate"
+          lazy-validation
+          class="height-100 d-flex flex-column justify-space-between"
+      >
+        <div>
+          <v-text-field
+              v-model="announcement.title"
+              :counter="50"
+              :rules="titleRules"
+              label="Ingrese el titulo del anuncio"
+              required
+          ></v-text-field>
+          <v-textarea
+              v-model="announcement.description"
+              label="Ingrese la descripcion del anuncio"
+              :rules="descriptionRules"
+              :counter="200"
+              required
+              auto-grow
+              rows="2"
+          ></v-textarea>
+          <v-text-field
+              label="Salario"
+              prefix="S/."
+              :rules="salaryRules"
+              v-model="announcement.salary"
+          ></v-text-field>
+          <v-combobox
+              v-model="model"
+              v-model:search-input="search"
+              :items="items"
+              hide-selected
+              hint="Maximo 5 etiquetas"
+              label="Agregue algunas habilidades"
+              multiple
+              persistent-hint
+              small-chips
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    No results matching "<strong>{{ search }}</strong>". Press <kbd>enter</kbd> to create a new one
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-combobox>
+        </div>
+        <div>
+          <v-divider></v-divider>
+          <v-card-actions class="d-flex justify-end">
+            <v-btn color="error" @click="closeAnnouncementAdd">Cerrar</v-btn>
+            <v-btn color="secondary" @click="registerAnnouncementAdd">Registrar</v-btn>
+          </v-card-actions>
+        </div>
+      </v-form>
+    </v-card-content>
+
+  </v-card>
 </template>
 
 <script>
 import router from "@/router";
+import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
 export default {
   name: "applicant-announcement-add",
   components: {},
+  props: {
+    dialogAnnouncementAdd: Boolean
+  },
   data: () => ({
-    abilitiesItems: [],
-    specialtyItems: [
-        "Programacion Web", "Front-end development", "Back-end development", "Python Programmer", "Angular Development"
-    ],
-    experienceItems: [
-        "Junior", "Senior", "Basic", "Advanced", "Intermediate", "Full stack"
-    ],
-    specialtyValue: null,
-    experienceValue: null,
-    maxItems: 5,
-    currencies: ["PEN", "USD", "RBL"],
-    currency: "PEN",
-    idUser: null
-
+    idUser: 1,
+    validate: true,
+    errors: [],
+    titleRules: [ v => !!v || 'Title is required', v => (v && v.length <= 50) || 'Title must be less than 50 characters'],
+    descriptionRules: [ v => !!v || 'Description is required', v => (v && v.length <= 200) || 'Description must be less than 200 characters'],
+    salaryRules: [v => !!v || 'Salary is required', v => (v && v > 0) || 'Salary must be major than 0'],
+    announcement: {
+      applicant_id: null,
+      title: '',
+      description: '',
+      salary: null,
+      date: null,
+      visible: null
+    },
+    items: ['Gaming', 'Programming', 'Vue', 'Vuetify'],
+    model: [],
+    search: null,
   }),
   methods: {
-    addSpecialties() {
-      let ability = {
-        specialty: this.specialtyValue,
-        experience: this.experienceValue
-      };
-      this.abilitiesItems.push(ability);
-      this.specialtyValue = '';
-      this.experienceValue = '';
-    },
     backToAnnouncement() {
       router.push({ name: 'applicant-announcement', params: {idUser: this.$route.params.idUser} })
     },
+    closeAnnouncementAdd() {
+      this.$emit('closeAnnouncementAdd');
+    },
+    async registerAnnouncementAdd() {
+      const is_valid = this.$refs.form.validate();
+      if (is_valid) {
+
+        const time = Date.now();
+        const today = new Date(time);
+
+        this.announcement.applicant_id = this.idUser;
+        this.announcement.visible = true;
+        this.announcement.date = today.toLocaleDateString();
+
+        await ApplicantsAnnouncementService.create(this.announcement)
+            .then(response => {
+              this.$emit("update:announcements", response.data);
+              this.closeAnnouncementAdd();
+            })
+            .catch(error => {
+              this.errors.push(error);
+            })
+      }
+    },
   },
-  mounted() {}
+  watch: {
+    model (val) {
+      if (val.length > 5) {
+        this.$nextTick(() => this.model.pop())
+      }
+    },
+  },
+  mounted() {
+    this.idUser = this.$route.params.idUser;
+  }
 }
 </script>
 
@@ -108,11 +147,8 @@ export default {
 .bg-secondary{
   background-color: #02EDB3;
 }
-.wight-90 {
-  width: 90%;
-}
-.wight-100 {
-  width: 100%
+.height-100 {
+  height: 100%;
 }
 .max-wight-100 {
   min-height: 100vh;

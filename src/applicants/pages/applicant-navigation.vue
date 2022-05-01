@@ -30,7 +30,9 @@
           dense
       >
         <div class="d-flex flex-column justify-center align-center pa-4">
-          <v-img width="100px" :src="require('../../core/img/LOGO.png')"></v-img>
+          <v-img :lazy-src="require('../../core/img/LOGO.png')"
+                 width="100px" :src="require('../../core/img/LOGO.png')"
+          ></v-img>
           <p class="primary">EasyJob</p>
         </div>
         <v-divider></v-divider>

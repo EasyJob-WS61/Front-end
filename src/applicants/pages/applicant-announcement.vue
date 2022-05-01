@@ -6,21 +6,48 @@
       </v-card>
       <v-card v-for="(announcement, key) in announcements" v-bind:key="key" class="pa-4 mb-3">
         <v-row>
-          <v-col cols="10">
-            <p>{{announcement.date}}</p>
-            <a @click="goToAnnouncementDetail(announcement.id)">
-              <v-card-title>{{announcement.title}}</v-card-title>
-            </a>
-            <p>{{announcement.description}}</p>
-          </v-col>
-          <v-col cols="2">
+          <v-col cols="2" class="d-flex justify-center align-center">
             <v-img width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Claro.svg/1741px-Claro.svg.png"></v-img>
           </v-col>
+          <v-col cols="10" class="d-flex flex-column justify-center">
+            <div class="d-flex justify-end">
+              <v-card-subtitle>{{announcement.date}}</v-card-subtitle>
+            </div>
+            <a @click="goToAnnouncementDetail(announcement.id)">
+              <v-card-title class="mb-0">{{announcement.title}}</v-card-title>
+            </a>
+            <v-card-subtitle>{{announcement.description}}</v-card-subtitle>
+            <v-card-subtitle>S/. {{announcement.salary}}</v-card-subtitle>
+            <v-card-actions class="d-flex">
+              <v-btn color="warning" class="rounded-lg">
+                <v-icon left class="pr-2">mdi-pencil</v-icon>Editar
+              </v-btn>
+              <v-btn color="error" @click="processDeleted(key)" class="rounded-lg">
+                <v-icon left class="pr-2">mdi-delete</v-icon>Eliminar
+              </v-btn>
+            </v-card-actions>
+          </v-col>
         </v-row>
-        <v-card-actions class="d-flex justify-end my-2">
-          <v-btn @click="deleteAnnouncement(announcement.id)" elevation="1" class="rounded-lg btn-delete">Eliminar Anuncio</v-btn>
-        </v-card-actions>
       </v-card>
+      <template>
+        <v-dialog
+            transition="dialog-bottom-transition"
+            v-model="confirmDeleted"
+            persistent>
+          <v-card width="500px" class="px-4 py-8 d-flex flex-column justify-center align-center">
+            <div class="">
+              <v-card-subtitle>¿Esta seguro que desea eliminar
+                <span class="error pl-1">{{announcementSelected.title}}</span>?
+              </v-card-subtitle>
+            </div>
+            <v-spacer></v-spacer>
+            <v-card-actions>
+              <v-btn color="error" @click="confirmDeleted = !confirmDeleted">Cancelar</v-btn>
+              <v-btn color="info" @click="deleteAnnouncement(announcementSelected.id, announcementSelected.key)">Aceptar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </template>
       <v-btn
           color="primary"
           elevation="2"
@@ -33,6 +60,15 @@
           class="position-absolute ma-6"
           @click="goToAnnouncementAdd"
       ><v-icon size="24px" class="text-white">mdi-plus</v-icon></v-btn>
+      <v-dialog
+          transition="dialog-bottom-transition"
+          v-model="dialogAnnouncementAdd"
+          persistent>
+        <applicant-announcement-add
+            v-on:closeAnnouncementAdd="dialogAnnouncementAdd = !dialogAnnouncementAdd"
+            v-on:update:announcements="addAnnouncement($event)"
+        ></applicant-announcement-add>
+      </v-dialog>
     </div>
   </v-container>
 </template>
@@ -40,11 +76,15 @@
 <script>
 import AnnouncementService from "@/applicants/services/applicants.announcement.service";
 import router from "@/router";
+import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add";
 export default {
   name: "applicant-announcement",
-  components: {},
+  components: {ApplicantAnnouncementAdd},
   data: () => ({
     announcements: [],
+    announcementSelected: {},
+    dialogAnnouncementAdd: false,
+    confirmDeleted: false,
   }),
   methods: {
     async getAnnouncements() {
@@ -58,22 +98,31 @@ export default {
           });
     },
     goToAnnouncementAdd() {
-      router.push({ name: 'applicant-announcement-add', params: { idUser: this.$route.params.idUser}})
+      this.dialogAnnouncementAdd = !this.dialogAnnouncementAdd;
     },
     goToAnnouncementDetail(id) {
       router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id} })
     },
-    async deleteAnnouncement(id) {
+    async deleteAnnouncement(id, key) {
+      console.log(key);
+      this.announcements.splice(key, 1);
+      this.confirmDeleted =  !this.confirmDeleted;
       await AnnouncementService.delete(id)
           .then(response => {
-            console.log(response.data)
+            console.log(response);
           })
           .catch(e => {
             this.errors.push(e.message);
           });
-      await this.getAnnouncements();
+    },
+    addAnnouncement($event) {
+      this.announcements.push($event);
+    },
+    processDeleted(key) {
+      this.announcementSelected = this.announcements[key];
+      this.announcementSelected.key = key;
+      this.confirmDeleted = !this.confirmDeleted;
     }
-
   },
   mounted() {
     this.getAnnouncements();
@@ -82,14 +131,10 @@ export default {
 </script>
 
 <style scoped>
-.btn-delete {
-  background-color: #02EDB3;
-  color: white;
-}
-.btn-delete:hover {
-  background-color: #FF5A5A;
-}
 .primary {
   color: #01C4FF;
+}
+.error {
+  color: #FF5A5A;
 }
 </style>
