@@ -1,11 +1,8 @@
 <template>
-  <row class="ma-0 pa-0 d-flex">
-    <v-col cols="4" class="ma-0 pa-0">
-      <applicant-navigation></applicant-navigation>
-    </v-col>
-    <v-col cols="8" class="ma-0 pa-4 background max-wight-100">
-      <v-card class="py-2 mb-4 ">
-        <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Mis Anuncios</p>
+  <v-container>
+    <div>
+      <v-card class="py-2 mb-4">
+        <p class="font-weight-bold text-h5 text-uppercase text-center primary">Mis Anuncios</p>
       </v-card>
       <v-card v-for="(announcement, key) in announcements" v-bind:key="key" class="pa-4 mb-3">
         <v-row>
@@ -36,17 +33,16 @@
           class="position-absolute ma-6"
           @click="goToAnnouncementAdd"
       ><v-icon size="24px" class="text-white">mdi-plus</v-icon></v-btn>
-    </v-col>
-  </row>
+    </div>
+  </v-container>
 </template>
 
 <script>
 import AnnouncementService from "@/applicants/services/applicants.announcement.service";
 import router from "@/router";
-import ApplicantNavigation from "@/applicants/pages/applicant-navigation";
 export default {
   name: "applicant-announcement",
-  components: {ApplicantNavigation},
+  components: {},
   data: () => ({
     announcements: [],
   }),
@@ -86,27 +82,6 @@ export default {
 </script>
 
 <style scoped>
-.background {
-  background-image: url("../../core/img/BACKGROUND.png");
-  background-size: cover;
-}
-.bg-secondary{
-  background-color: #02EDB3;
-}
-.wight-100 {
-  width: 100%
-}
-.max-wight-100 {
-  min-height: 100vh;
-  height: 100vh;
-  box-sizing: border-box;
-  overflow-x:hidden;
-  overflow-y:initial;
-  scrollbar-wight: none;
-}
-::-webkit-scrollbar {
-  display: none;
-}
 .btn-delete {
   background-color: #02EDB3;
   color: white;
