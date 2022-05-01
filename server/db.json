@@ -159,6 +159,7 @@
     {
       "id": 4,
       "applicant_id": 1,
+      "postulant_id": 1,
       "announcement_id": 2,
       "title": "¡Sigue intentando!",
       "description": "Revisa el feedback para mejorar tus habilidades.",

@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/postulants/:idUser/premium/',
+    name: "postulant-premium",
+    component: () => import('../postulants/pages/postulant-premium'),
+    props: true
+  },
+  {
     path: '/postulants/:idUser/chat/',
     name: "postulant-chat",
     component: () => import('../postulants/pages/postulant-chat'),

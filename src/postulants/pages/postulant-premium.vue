@@ -20,7 +20,24 @@
           <h1  style="color: #6c6b6b; font-size: 28px; margin-right: 40px">Aparece en las primeras posiciones de busqueda de profesionales</h1> <br/>
           <h1 style="color: #6c6b6b; font-size: 28px; margin-right: 80px">Sé recomendado a empresas de acuerdo a tus hbailidades y talento</h1>
           <br/><br/>
-          <v-btn class="rounded-lg btn-info" height="50px" >Adquirir</v-btn>
+          <v-btn class="rounded-lg btn-info" height="50px"   @click.stop="dialog = true">Adquirir</v-btn>
+
+          <v-dialog v-model="dialog" max-width="290">
+              <v-card>
+
+                <v-img width="700px" v-bind:src="require('../../core/img/pay.png')" alt="premium"></v-img>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      color="primary"
+                      text
+                      @click="dialog = false"
+                  >
+                    Pagar
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+          </v-dialog>
         </v-col>
       </v-row>
     </v-col>
@@ -30,10 +47,18 @@
 
 <script>
 import PostulantNavegation from "@/postulants/pages/postulant-navegation";
-
 export default {
   name: "postulant-premium",
-  components: {PostulantNavegation}
+  components: {PostulantNavegation},
+  data () {
+    return {
+      dialog: false,
+    }
+  },
+  created() {
+  },
+  methods:{
+  }
 }
 </script>
 
@@ -48,4 +73,5 @@ export default {
   color: #01C4FF;
   font-family: Roboto;
 }
+
 </style>

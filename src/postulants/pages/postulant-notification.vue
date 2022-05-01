@@ -9,20 +9,17 @@
       <v-card class="py-2 mb-4 ">
         <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Notificaciones</p>
       </v-card>
-      <v-card v-for="notification in notifications" :key="notification" class="pa-4 mb-3">
-        <v-row>
-          <v-col cols="10">
+      <v-raw v-for="notification in notifications" :key="notification" cols="8" class="ma-0 pa-4  max-wight-100 " >
+          <v-card v-if="notification.postulant_id==idUser"  class="pa-4 mb-3" >
             <p class="font-weight-medium blackletter">{{notification.date}}</p>
             <v-card-title class="primary">{{notification.title}}</v-card-title>
             <p class="font-weight-medium blackletter">{{notification.description}}</p>
-          </v-col>
-          <v-col cols="2">
-             </v-col>
-        </v-row>
-        <v-card-actions class="justify-end " v-if="notification.refused===1">
-          <v-btn class="rounded-lg btn-info">Más información</v-btn>
-         </v-card-actions>
-      </v-card>
+
+            <v-card-actions class="justify-end " v-if="notification.refused===1">
+               <v-btn class="rounded-lg btn-info">Más información</v-btn>
+             </v-card-actions>
+          </v-card>
+      </v-raw>
     </v-col>
   </row>
 </template>
@@ -36,11 +33,13 @@ export default {
   data: () => ({
     notifications: [],
     items: [],
+    idUser:0,
   }),
   async created() {
     try {
       const response1 = await NotificationService.getAll();
-      this.notifications = response1.data
+      this.notifications = response1.data;
+      this.idUser=this.$route.params.idUser;
     }
     catch (e)
     {
