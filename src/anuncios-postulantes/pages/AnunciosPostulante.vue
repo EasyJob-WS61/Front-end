@@ -21,7 +21,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="containter-anuncio">
+            <div class="containter-anuncio" v-on:click="changePage" >
               <v-row>
                 <v-col class="row-center">
                   <p>San Isidro, Lima</p>
@@ -53,7 +53,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="containter-anuncio">
+            <div class="containter-anuncio" v-on:click="changePage">
               <v-row>
                 <v-col class="row-center">
                   <p>San Isidro, Lima</p>
@@ -85,7 +85,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="containter-anuncio">
+            <div class="containter-anuncio" v-on:click="changePage">
               <v-row>
                 <v-col class="row-center">
                   <p>San Isidro, Lima</p>
@@ -117,7 +117,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="containter-anuncio">
+            <div class="containter-anuncio" v-on:click="changePage">
               <v-row>
                 <v-col class="row-center">
                   <p>San Isidro, Lima</p>
@@ -149,7 +149,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="containter-anuncio">
+            <div class="containter-anuncio" v-on:click="changePage">
               <v-row>
                 <v-col class="row-center">
                   <p>San Isidro, Lima</p>
@@ -191,10 +191,16 @@ export default {
   data: () => ({
     rules: [(value) => !!value || "Required."],
   }),
+
+  methods: {
+    changePage(){
+      this.$router.push('/detalles-anuncio');
+    }
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .allcontainer {
   display: flex;
   flex-direction: column;

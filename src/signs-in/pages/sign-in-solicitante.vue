@@ -27,6 +27,7 @@
               label="Nombres"
               :rules="rules"
               hide-details="auto"
+              v-model="nombres"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -34,8 +35,9 @@
           <v-col>
             <v-text-field
               label="Apellidos"
-              :rules="Nombres"
+              :rules="rules"
               hide-details="auto"
+              v-model="apellidos"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -44,8 +46,9 @@
           <v-col>
             <v-text-field
               label="Correo Electronico"
-              :rules="Nombres"
+              :rules="rules"
               hide-details="auto"
+              v-model="correo"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -53,8 +56,9 @@
           <v-col>
             <v-text-field
               label="Contraseña"
-              :rules="Nombres"
+              :rules="rules"
               hide-details="auto"
+              v-model="contrasena"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -62,14 +66,15 @@
           <v-col>
             <v-text-field
               label="Repetir Contraseña"
-              :rules="Nombres"
+              :rules="rules"
               hide-details="auto"
+              v-model="contrasena2"
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-btn color="#01C4FF" elevation="2" x-large>continuar</v-btn>
+            <v-btn v-on:click="register" color="#01C4FF" elevation="2" x-large>continuar</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -78,16 +83,35 @@
 </template>
 
 <script>
+import RegisterService from "./../services/signin.service";
 export default {
   name: "SignInSolicitante",
 
   data: () => ({
     rules: [(value) => !!value || "Required."],
+    nombres:"",
+    apellidos:"",
+    correo:"",
+    contrasena:"",
+    contrasena2:"",
   }),
+
+  methods: {
+    async register() {
+      console.log( this.nombres, this.apellidos, this.correo, this.contrasena, this.contrasena2);
+      await RegisterService.create({
+        name: this.nombres,
+        lastname: this.apellidos,
+        email: this.correo,
+        password: this.contrasena,
+        photo: "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg"
+      });
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
   text-align: center;
   color: #01c4ff;
