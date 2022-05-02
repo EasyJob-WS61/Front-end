@@ -3,6 +3,13 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/',
+    name: 'login-account',
+    component: () => import('../postulants/pages/login-account'),
+    props: true
+  },
+
+  {
     path: '/postulants/:idUser/notifications/:idNotification/feedback',
     name: "postulant-feedback",
     component: () => import('../postulants/pages/postulant-feedback'),

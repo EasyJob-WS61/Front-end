@@ -9,7 +9,9 @@ class ApplicantsService{
     getById(id) {
         return http.get(`${this.resource}/${id}`);
     }
-
+    getByEmail(email) {
+        return http.get(`${this.resource}?email=${email}`);
+    }
     create(createAnnouncementDto) {
         return http.post(this.resource, createAnnouncementDto);
     }

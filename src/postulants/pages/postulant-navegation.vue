@@ -56,7 +56,7 @@
               <router-link :to="{name: 'postulant-premium', params:{idUser: this.idUser}}"  class="text-decoration-none color-text-items">Premium</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu-logout">
-              <router-link to="" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
+              <router-link :to="{name: 'login-account'}" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>

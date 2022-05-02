@@ -6,7 +6,9 @@ class PostulantsService{
     getById(id) {
         return http.get(`/postulants/${id}`);
     }
-
+    getByEmail(email) {
+        return http.get(`/postulants?email=${email}`);
+    }
     create(data) {
         return http.post("/postulants", data);
     }

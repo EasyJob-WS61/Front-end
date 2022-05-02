@@ -1,7 +1,7 @@
 <template>
   <v-app :theme="theme" class="scroll overflow-hidden">
     <v-main>
-      <postulant-navegation></postulant-navegation>
+      <postulant-navegation v-if="this.$route.name!=='login-account'"></postulant-navegation>
       <router-view></router-view>
     </v-main>
   </v-app>
