@@ -24,12 +24,12 @@ const routes = [
     component: SignInSolicitante
   }, 
   {
-    path: '/anuncios-postulantes',
+    path: '/postulants/:id/announcements',
     name: 'anuncios-postulantes',
     component: AnunciosPostulantes
   },
   {
-    path: '/detalles-anuncio',
+    path: '/postulants/:id/announcements/:id',
     name: 'detalles-anuncio',
     component: DetallesAnuncio
   }

@@ -194,7 +194,7 @@ export default {
 
   methods: {
     changePage(){
-      this.$router.push('/detalles-anuncio');
+      this.$router.push('/postulants/1/announcements/1');
     }
   },
 };
