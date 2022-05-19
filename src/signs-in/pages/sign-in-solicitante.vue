@@ -123,10 +123,7 @@ h2 {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-image: url("https://i.pinimg.com/564x/90/61/74/906174f7d18a56bf917a232e65e6bf8f.jpg") !important;
-   background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: transparent;
 }
 .input-container {
   width: 40%;
