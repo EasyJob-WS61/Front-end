@@ -9,8 +9,11 @@ class ApplicantsService{
     getById(id) {
         return http.get(`${this.resource}/${id}`);
     }
-    create(createApplicantDto) {
-        return http.post(this.resource, createApplicantDto);
+    getByEmail(email) {
+        return http.get(`${this.resource}?email=${email}`);
+    }
+    create(createAnnouncementDto) {
+        return http.post(this.resource, createAnnouncementDto);
     }
     update(id, updateApplicantDto) {
         return http.put(`${this.resource}/${id}`, updateApplicantDto);
