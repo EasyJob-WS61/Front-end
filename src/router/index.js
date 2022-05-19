@@ -5,13 +5,19 @@ import DetallesAnuncio from '../anuncios-postulantes/pages/DetallesAnuncio.vue'
 
 const routes = [
   {
+    path: '/postulants/:idUser/notifications/:idNotification/feedback',
+    name: "postulant-feedback",
+    component: () => import('../postulants/pages/postulant-feedback'),
+    props: true
+  },
+  {
     path: '/postulants/:idUser/premium/',
     name: "postulant-premium",
     component: () => import('../postulants/pages/postulant-premium'),
     props: true
   },
   {
-    path: '/postulants/:idUser/chat/',
+    path: '/postulants/:idUser/chat/:idUser2',
     name: "postulant-chat",
     component: () => import('../postulants/pages/postulant-chat'),
     props: true

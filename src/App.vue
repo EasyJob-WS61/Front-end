@@ -1,6 +1,7 @@
 <template>
   <v-app :theme="theme">
-    <applicant-navigation v-bind:theme-main="theme" v-on:changeTheme="changeTheme"></applicant-navigation>
+    <applicant-navigation v-if="typeUser === 'applicants'" v-bind:theme-main="theme" v-on:changeTheme="changeTheme"></applicant-navigation>
+    <postulant-navegation v-else></postulant-navegation>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -8,13 +9,14 @@
 </template>
 
 <script>
-
 import ApplicantNavigation from "@/applicants/pages/applicant-navigation";
+import PostulantNavegation from "@/postulants/pages/postulant-navegation";
 export default {
   name: 'App',
-  components: {ApplicantNavigation},
+  components: {ApplicantNavigation, PostulantNavegation},
   data: () => ({
     theme: 'lightTheme',
+    typeUser: "applicants",
   }),
   methods: {
     changeTheme() {

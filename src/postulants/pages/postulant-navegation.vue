@@ -1,90 +1,136 @@
 <template>
-  <v-card height="100vh" tile class="text-center border-none">
-    <div class="height-100 d-flex flex-column justify-space-between py-4">
-      <div>
-        <v-img class="mx-auto" width="200px" v-bind:src="require('../../core/img/LOGO.png')" alt="EasyJob Logo"></v-img>
-        <div class="pb-3">
-          <v-subheader class="text-lg-h4 text-sm-h5 font-weight-bold primary text-center">EasyJob</v-subheader>
+  <v-card
+      class="overflow-hidden"
+      width="auto"
+  >
+    <v-app-bar
+        app
+        color="primary"
+        prominent
+        class="text-white"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title class="font-weight-bold" v-if="!this.drawer">EasyJob</v-toolbar-title>
+      <v-toolbar-title v-else></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="changeTheme" icon><v-icon>{{this.theme}}</v-icon></v-btn>
+      <v-btn icon><v-icon>mdi-cog</v-icon></v-btn>
+
+    </v-app-bar>
+    <v-navigation-drawer
+        v-model="drawer"
+        bottom
+        class="text-white "
+        temporary="false"
+        hide-overlay
+        height="100%"
+    >
+      <v-list
+          nav="true"
+          dense
+      >
+        <div class="d-flex flex-column justify-center align-center pa-4">
+          <v-img width="100px" :src="require('../../core/img/LOGO.png')"></v-img>
+          <p  class="primary font-weight-bold " style="font-size: 30px">EasyJob</p>
         </div>
-        <v-list dense color="primary">
-          <v-list-item-group
-              v-model="selectedItem"
-              color="primary"
-              class="text-center pt-0 mt-0"
-          >
-            <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                class="select-item text-center d-flex justify-center align-center text-h5 primary-border height-100"
-            >
-              <v-list-item-content>
-                <v-list-item-title class="text-uppercase font-weight-bold">{{item.text}}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </div>
-      <v-list-item class="select-item-two text-center d-flex justify-center align-center text-h5 secondary-bg">
-        <v-list-item-content>
-          <v-list-item-title class="text-uppercase font-weight-bold">Cerrar Sesión</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </div>
+
+        <v-list-item-group
+            v-model="group"
+            class="d-flex flex-column align-center"
+            active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item class="d-flex flex-column">
+            <v-list-item-title class="pa-4 border-item-menu">
+              <router-link :to="{ name: 'applicant-announcement', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Inicio</router-link>
+            </v-list-item-title>
+            <v-list-item-title class="pa-4 border-item-menu">
+              <router-link to="" class="text-decoration-none color-text-items">Perfil</router-link>
+            </v-list-item-title>
+            <v-list-item-title class="pa-4 border-item-menu">
+              <router-link :to="{name: 'postulant-notification', params:{idUser: this.idUser}}" class="text-decoration-none color-text-items">Notificaciones</router-link>
+            </v-list-item-title>
+            <v-list-item-title class="pa-4 border-item-menu">
+              <router-link :to="{name: 'postulant-chat', params:{idUser: this.idUser, idUser2: 0}}" class="text-decoration-none color-text-items">Mensajes</router-link>
+            </v-list-item-title>
+            <v-list-item-title class="pa-4 border-item-menu ">
+              <router-link :to="{name: 'postulant-premium', params:{idUser: this.idUser}}"  class="text-decoration-none color-text-items">Premium</router-link>
+            </v-list-item-title>
+            <v-list-item-title class="pa-4 border-item-menu-logout">
+              <router-link to="" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
   </v-card>
 </template>
-
 <script>
 export default {
   name: "postulant-navegation",
+  props: ['themeMain'],
   data: () => ({
     selectedItem: 1,
     items: [
-      { text: 'Inicio', icon: 'mdi-clock' },
-      { text: 'Perfil', icon: 'mdi-account' },
-      { text: 'Notificaciones', icon: 'mdi-flag' },
-      { text: 'Mensajes', icon: 'mdi-flag' },
-      { text: 'Premium', icon: 'mdi-flag' }
+      { text: 'Inicio', to: 'mdi-clock' },
+      { text: 'Perfil', to: 'mdi-account' },
+      { text: 'Notificaciones', to: 'mdi-flag' },
+      { text: 'Mensajes', to: 'mdi-flag' },
+      { text: 'Premium', to: 'mdi-flag' }
     ],
-  })
+    drawer: false,
+    group: null,
+    theme: 'mdi-lightbulb-on',
+    idUser: 1
+  }),
+  methods: {
+    changeTheme: function () {
+      if (this.theme === "mdi-lightbulb-on") {
+        this.theme = 'mdi-lightbulb-off';
+      } else {
+        this.theme = 'mdi-lightbulb-on';
+      }
+      this.$emit('changeTheme');
+    },
+    goToHome() {
+      this.routes.push("hello");
+    }
+  },
 }
 </script>
 
-<style scoped>
-.select-item {
+<style scoped>.border-item-menu {
+  border-bottom: 3px solid #01C4FF;
+  cursor: pointer;
+  font-family: Roboto;
+  font-size: 20px;
   color: #01C4FF;
 }
-.select-item:hover {
-  cursor: pointer;
-  background-color: #01C4FF;
-  color: white;
+.border-item-menu:hover {
+  border-bottom: 3px solid #02EDB3;
+  color: #02EDB3;
 }
-.select-item-two {
-  color: white;
-}
-.select-item-two:hover {
+.border-item-menu-logout {
+  border-bottom: 3px solid #01C4FF;
   cursor: pointer;
-  background-color: #FF5A5A;
-  color: white;
+  font-family: Roboto;
+  font-size: 20px;
+  color: #01C4FF;
+}
+.border-item-menu-logout:hover {
+  border-bottom: 3px solid #FF5A5A;
+  color: #FF5A5A;
+  font-family: Roboto;
+  font-size: 20px;
+}
+.color-text-items {
+  color: inherit;
+}
+::-webkit-scrollbar {
+  width: 15px;
 }
 .primary {
   color: #01C4FF;
-}
+  font-family: Roboto;
 
-.secondary-bg {
-  background-color: #02EDB3;
-}
-.primary-border {
-  border: 0px solid #01C4FF;
-  border-bottom-width: 1px;
-}
-.primary-border:first-of-type {
-  border-top-width: 1px;
-}
-.height-100 {
-  height: 100%;
-}
-.selected {
-  background-color: #01C4FF;
-  color: white;
 }
 </style>

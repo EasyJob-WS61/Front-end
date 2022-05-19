@@ -136,7 +136,9 @@
       "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
       "description": "Fuiste elegido por Heber Cordova para Claro SAC",
       "date": "2022-04-27",
-      "refused": 0
+      "refused": 0,
+      "success": 1,
+      "feedback": ""
     },
     {
       "id": 2,
@@ -145,7 +147,9 @@
       "title": "Has aplicado para: Se busca programador en Back-end",
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
       "date": "2022-04-27",
-      "refused": 0
+      "refused": 0,
+      "success": 0,
+      "feedback": ""
     },
     {
       "id": 3,
@@ -154,7 +158,9 @@
       "title": "Has aplicado para: Se busca programador en Back-end",
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
       "date": "2022-04-27",
-      "refused": 0
+      "refused": 0,
+      "success": 0,
+      "feedback": ""
     },
     {
       "id": 4,
@@ -164,7 +170,27 @@
       "title": "¡Sigue intentando!",
       "description": "Revisa el feedback para mejorar tus habilidades.",
       "date": "2022-04-27",
-      "refused": 1
+      "refused": 1,
+      "success": 0,
+      "feedback": "Hemos recibido tu candidatura para el proceso de selección y hemos decidido no proceder con tu candidatura. En estos momentos necesitamos incorporar a alguien que se ajuste mejor al perfil definido.\n\nNo obstante, te animamos a que nos sigas la pista, a nosotros/as y a nuestra vacantes, ya que estamos en pleno proceso de crecimiento, y quizás en otra ocasión nuestras motivaciones se alineen.\n\n¡Gracias por tu confianza y mucha suerte!"
+    }
+  ],
+  "Chats": [
+    {
+      "id": 1,
+      "fromApplicant": 1,
+      "applicant_id": 1,
+      "postulant_id": 1,
+      "date": "2022-04-27",
+      "text": "Buenas tardes, hoy debemos acordar la entrevista"
+    },
+    {
+      "id": 2,
+      "fromApplicant": 0,
+      "applicant_id": 1,
+      "postulant_id": 1,
+      "date": "2022-04-27",
+      "text": "Buenas tardes, de acuerdo"
     }
   ],
   "abilities": [
