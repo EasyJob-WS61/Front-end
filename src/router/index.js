@@ -1,22 +1,26 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import SignInSolicitante from '../signs-in/pages/sign-in-solicitante.vue'
 import AnunciosPostulantes from './../anuncios-postulantes/pages/AnunciosPostulante.vue'
 import DetallesAnuncio from '../anuncios-postulantes/pages/DetallesAnuncio.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/postulants/:idUser/premium/',
+    name: "postulant-premium",
+    component: () => import('../postulants/pages/postulant-premium'),
+    props: true
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/postulants/:idUser/chat/',
+    name: "postulant-chat",
+    component: () => import('../postulants/pages/postulant-chat'),
+    props: true
+  },
+  {
+    path: '/postulants/:idUser/notifications/',
+    name: "postulant-notification",
+    component: () => import('../postulants/pages/postulant-notification'),
+    props: true
   },
   {
     path: '/applicants/:idUser/announcements/',

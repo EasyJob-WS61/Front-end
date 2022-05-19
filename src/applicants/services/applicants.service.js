@@ -1,7 +1,7 @@
 import http from "@/core/services/http-common";
 
-class ApplicantsService {
-    resource = "/applicants";
+class ApplicantsService{
+    resource = '/applicants';
 
     getAll() {
         return http.get(this.resource);
@@ -21,3 +21,4 @@ class ApplicantsService {
 }
 
 export default new ApplicantsService();
+

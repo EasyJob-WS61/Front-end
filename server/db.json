@@ -135,7 +135,8 @@
       "announcement_id": 1,
       "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
       "description": "Fuiste elegido por Heber Cordova para Claro SAC",
-      "date": "2022-04-27"
+      "date": "2022-04-27",
+      "refused": 0
     },
     {
       "id": 2,
@@ -143,7 +144,8 @@
       "announcement_id": 2,
       "title": "Has aplicado para: Se busca programador en Back-end",
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
-      "date": "2022-04-27"
+      "date": "2022-04-27",
+      "refused": 0
     },
     {
       "id": 3,
@@ -151,7 +153,18 @@
       "postulant_id": 1,
       "title": "Has aplicado para: Se busca programador en Back-end",
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
-      "date": "2022-04-27"
+      "date": "2022-04-27",
+      "refused": 0
+    },
+    {
+      "id": 4,
+      "applicant_id": 1,
+      "postulant_id": 1,
+      "announcement_id": 2,
+      "title": "¡Sigue intentando!",
+      "description": "Revisa el feedback para mejorar tus habilidades.",
+      "date": "2022-04-27",
+      "refused": 1
     }
   ],
   "abilities": [
