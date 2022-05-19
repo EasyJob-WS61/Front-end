@@ -1,7 +1,7 @@
 import http from "@/core/services/http-common";
 
 class RegisterService{
-    resource = "/announcements";
+    resource = "/sigin/solicitante";
     create(createUtilityDto){
         return http.post(this.resource, createUtilityDto);
     }
