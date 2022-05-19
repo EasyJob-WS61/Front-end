@@ -89,10 +89,10 @@
 </template>
 
 <script>
+import router from "@/router";
 import AnnouncementService from "@/applicants/services/applicants.announcement.service";
 import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add";
 import ApplicantService from "@/applicants/services/applicants.service"
-import router from "@/router";
 import ApplicantAnnouncementEdit from "@/applicants/pages/applicant-announcement-edit";
 export default {
   name: "applicant-announcement",
@@ -170,7 +170,7 @@ export default {
   mounted() {
     this.getAnnouncements();
     this.getApplicant(this.idUser);
-  }
+  },
 }
 </script>
 

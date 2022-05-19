@@ -2,21 +2,22 @@ import {mount} from "@vue/test-utils";
 
 const ApplicationComponent = {
     template: `
-      <p v-if="applications.length === 0">There are no applicants</p>
-      <div v-else v-for="(application, key) in applications" v-bind:key="key">
+      <div v-for="(application, key) in applications" v-bind:key="key">
           <p>{{ application.postulant.name }} {{application.postulant.lastname}}</p>
           <p>{{ application.postulant.email }}</p>
       </div>
+      <p>{{msg}}</p>
     `,
     data() {
         return {
             applications: [],
+            msg: 'There are no applications',
         }
     },
 }
 
 describe("As an applicant I want to see who applied to an ad so I can review them and select the best ones.", () => {
-    it("There are no applicants", () => {
+    it("There are applications", () => {
         const wrapper = mount(ApplicationComponent);
         const text = wrapper.find('p');
 
@@ -36,14 +37,15 @@ describe("As an applicant I want to see who applied to an ad so I can review the
                     }
                 },
             ],
+            msg: '',
         });
 
         expect(text.text()).toContain('');
     });
-    it("There are applicants", () => {
+    it("There are no applications", () => {
         const wrapper = mount(ApplicationComponent);
         const text = wrapper.find('p');
 
-        expect(text.text()).toContain('There are no applicants');
+        expect(text.text()).toContain('There are no applications');
     });
-})
+});
