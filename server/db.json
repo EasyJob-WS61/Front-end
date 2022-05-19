@@ -61,6 +61,14 @@
       "visible": true,
       "ability": "Programacion con Python",
       "id": 7
+    },
+    {
+      "name": "",
+      "lastname": "",
+      "email": "",
+      "password": "",
+      "photo": "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg",
+      "id": 8
     }
   ],
   "postulants": [

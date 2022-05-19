@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
+  <v-container class="allcontainer">
+    <v-row justify="center" fluid class="container">
       <v-col cols="12">
         <v-img
           :src="require('../assets/logo.svg')"
@@ -33,117 +33,83 @@
         <h2 class="headline font-weight-bold mb-5">
           What's next?
         </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-5">
-          Important Links
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-5">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
 
   data: () => ({
-    ecosystem: [
-      {
-        text: 'vuetify-loader',
-        href: 'https://github.com/vuetifyjs/vuetify-loader',
-      },
-      {
-        text: 'github',
-        href: 'https://github.com/vuetifyjs/vuetify',
-      },
-      {
-        text: 'awesome-vuetify',
-        href: 'https://github.com/vuetifyjs/awesome-vuetify',
-      },
-    ],
-    importantLinks: [
-      {
-        text: 'Chat',
-        href: 'https://community.vuetifyjs.com',
-      },
-      {
-        text: 'Made with Vuetify',
-        href: 'https://madewithvuejs.com/vuetify',
-      },
-      {
-        text: 'Twitter',
-        href: 'https://twitter.com/vuetifyjs',
-      },
-      {
-        text: 'Articles',
-        href: 'https://medium.com/vuetify',
-      },
-    ],
-    whatsNext: [
-      {
-        text: 'Explore components',
-        href: 'https://vuetifyjs.com',
-      },
-      {
-        text: 'Roadmap',
-        href: 'https://vuetifyjs.com/introduction/roadmap/',
-      },
-      {
-        text: 'Frequently Asked Questions',
-        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-      },
-    ],
+    rules: [(value) => !!value || "Required."],
   }),
-}
+};
 </script>
+
+<style>
+.allcontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  background-image: url("../core/img/BACKGROUND.png");
+}
+.container {
+  width: 100%;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3pc;
+}
+
+.row-center {
+  display: flex;
+  align-items: center;
+}
+
+.col-center {
+  display: flex;
+  justify-content: center;
+}
+
+.containter-anuncio {
+  border: 1px solid rgb(189, 189, 189);
+  height: 10rem;
+  -webkit-box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
+  -moz-box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
+  box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 2px 20px;
+  margin: 0.5rem 0px;
+}
+.containter-anuncio h2{
+  color:#01C4FF;
+}
+.containter-anuncio p{
+  color:#747373;
+}
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.img-post {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+}
+.img-post img{
+  width: 100%;
+  max-width:100% !important;
+}
+</style>
