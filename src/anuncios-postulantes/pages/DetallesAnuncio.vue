@@ -51,7 +51,7 @@
       </v-col>
     </v-row>
     <v-row justify="center" fluid class="container">
-      <button @click="dialog = true">POSTULARME</button>
+      <button @click="dialog = true; postular()">POSTULARME</button>
     </v-row>
 
     <v-row>
@@ -78,13 +78,15 @@
 
 <script>
 import AnnouncesService from "../services/Announces.service";
+import ApplicantNotificationService from "@/applicants/services/applicants.notification.service";
 export default {
   name: "DetallesAnuncio",
 
 
   data: () => ({
     dialog: false,
-    announcement: ""
+    announcement: "",
+    notification: {}
   }),
 
   async mounted() {
@@ -94,6 +96,16 @@ export default {
 
   
   },
+  methods:{
+    postular(){
+      this.notification.applicantId= parseInt(this.announcement.applicantId);
+      this.notification.announcement_id= parseInt(this.$route.params.a_id);
+      this.notification.postulant_id= parseInt(this.$route.params.id);
+      this.notification.date=Date().toLocaleString();
+      this.notification.state="pending";
+      ApplicantNotificationService.create(this.notification);
+    }
+  }
 };
 </script>
 

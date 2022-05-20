@@ -41,7 +41,7 @@
         >
           <v-list-item class="d-flex flex-column">
             <v-list-item-title class="pa-4 border-item-menu">
-              <router-link :to="{ name: 'applicant-announcement', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Inicio</router-link>
+              <router-link :to="{ name: 'anuncios-postulantes', params: { id: this.idUser }}" class="text-decoration-none color-text-items">Inicio</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
               <router-link to="" class="text-decoration-none color-text-items">Perfil</router-link>

@@ -31,18 +31,21 @@
         </v-col>
         <v-col cols="12">
           <v-card width="100%" class="px-8 py-4 my-4">
+
             <v-card-title class="text-center font-weight-bold primary pl-0">Postulantes</v-card-title>
             <div v-if="this.applications.length === 0" class="d-flex justify-center align-center">
               <p class="font-weight-bold primary">No hay postulantes</p>
             </div>
             <div v-else>
-              <v-row v-for="(application, key) in applications" v-bind:key="key">
+              <v-col v-for="application in applications" v-bind:key="application">
+              <div v-for="postulant in postulants" v-bind:key="postulant">
+                <row v-if="postulant.id==application.postulant_id">
                 <v-col cols="3" class="v-col-md-2 pa-4">
-                  <v-img class="rounded" :src="application.postulant.photo"></v-img>
+                  <v-img class="rounded" :src="postulant.photo"></v-img>
                 </v-col>
                 <v-col cols="5" class="v-col-md-7 d-flex flex-column justify-center align-start">
-                  <v-card-title>{{application.postulant.name}} {{application.postulant.lastname}}</v-card-title>
-                  <v-card-subtitle>{{application.postulant.email}}</v-card-subtitle>
+                  <v-card-title>{{postulant.name}} {{postulant.lastname}}</v-card-title>
+                  <v-card-subtitle>{{postulant.email}}</v-card-subtitle>
                 </v-col>
                 <v-col cols="4" class="v-col-md-3 d-flex justify-center align-center">
                   <div v-if="application.state === 'accepted'">
@@ -60,7 +63,8 @@
                     </v-btn>
                   </div>
                 </v-col>
-              </v-row>
+                </row>
+              </div>
               <v-dialog
                   transition="dialog-bottom-transition"
                   v-model="confirmAcceptedPostulant"
@@ -78,7 +82,9 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              </v-col>
             </div>
+
           </v-card>
         </v-col>
       </v-row>
@@ -90,6 +96,8 @@
 import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
 import ApplicantsService from "@/applicants/services/applicants.service";
 import ApplicationsService from "@/applicants/services/applications.service";
+import ApplicantNotificationService from  "@/applicants/services/applicants.notification.service"
+import PostulantsService from "@/postulants/services/postulants.service";
 export default {
   name: "applicant-announcement-detail",
   components: {},
@@ -106,6 +114,21 @@ export default {
     applications: [],
     errors: [],
   }),
+  async created() {
+    try {
+      const response1 = await ApplicantNotificationService.getByAnnouncementId(this.$route.params.id);
+      this.applications = response1.data
+      const response2= await PostulantsService.getAll();
+      this.postulants = response2.data
+      this.getAnnouncement();
+      this.getApplicant();
+    }
+    catch (e)
+    {
+      console.error(e);
+      console.log(this.notifications)
+    }
+  },
   methods: {
     async getAnnouncement(){
       await ApplicantsAnnouncementService.getById(this.$route.params.id)
@@ -158,11 +181,6 @@ export default {
       this.stateES = stateText;
       this.confirmAcceptedPostulant = !this.confirmAcceptedPostulant
     }
-  },
-  mounted() {
-    this.getAnnouncement();
-    this.getApplicant();
-    this.getApplicationsByAnnouncementId();
   }
 }
 </script>

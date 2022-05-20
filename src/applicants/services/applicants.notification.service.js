@@ -7,7 +7,9 @@ class ApplicantNotificationService{
     getById(id) {
         return http.get(`/notification-applicant/${id}`);
     }
-
+    getByAnnouncementId(id) {
+        return http.get(`/notification-applicant/?announcement_id=${id}`);
+    }
     create(data) {
         return http.post("/notification-applicant", data);
     }

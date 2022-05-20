@@ -224,7 +224,16 @@
       "applicantId": 1,
       "announcement_id": 1,
       "postulant_id": 1,
-      "date": "2022-04-27"
+      "date": "2022-04-27",
+      "state": "pending"
+    },
+    {
+      "applicantId": 1,
+      "announcement_id": 1,
+      "postulant_id": 1,
+      "date": "Fri May 20 2022 00:29:48 GMT-0500 (hora estándar de Perú)",
+      "id": 2,
+      "state": "pending"
     }
   ],
   "abilities": [

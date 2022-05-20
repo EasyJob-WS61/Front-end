@@ -70,7 +70,7 @@ const routes = [
     component: AnunciosPostulantes
   },
   {
-    path: '/postulants/:id/announcements/:id',
+    path: '/postulants/:id/announcements/:a_id',
     name: 'detalles-anuncio',
     component: DetallesAnuncio
   }
