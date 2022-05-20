@@ -49,7 +49,7 @@
               <router-link to="" class="text-decoration-none color-text-items">Perfil</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
-              <router-link to="" class="text-decoration-none color-text-items">Notificaciones</router-link>
+              <router-link :to="{ name: 'applicant-notification', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Notificaciones</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
               <router-link to="" class="text-decoration-none color-text-items">Mensajes</router-link>

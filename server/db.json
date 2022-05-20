@@ -208,6 +208,23 @@
       "postulant_id": 1,
       "date": "2022-04-27",
       "text": "Buenas tardes, de acuerdo"
+    },
+    {
+      "text": "a",
+      "fromApplicant": 0,
+      "applicant_id": 1,
+      "postulant_id": 1,
+      "date": "Thu May 19 2022 19:50:11 GMT-0500 (hora estándar de Perú)",
+      "id": 3
+    }
+  ],
+  "notification-applicant": [
+    {
+      "id": 1,
+      "applicantId": 1,
+      "announcement_id": 1,
+      "postulant_id": 1,
+      "date": "2022-04-27"
     }
   ],
   "abilities": [

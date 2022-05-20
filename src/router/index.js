@@ -36,6 +36,12 @@ const routes = [
     props: true
   },
   {
+    path: '/applicants/:idUser/notifications/',
+    name: "applicant-notification",
+    component: () => import('../applicants/pages/applicant-notification'),
+    props: true
+  },
+  {
     path: '/applicants/:idUser/announcements/',
     name: 'applicant-announcement',
     component: () => import('../applicants/pages/applicant-announcement'),
