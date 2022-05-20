@@ -7,7 +7,7 @@
             <div class="containter-anuncio">
               <v-row>
                 <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
+                  <h2>{{announcement.title}}</h2>
                 </v-col>
               </v-row>
               <v-row>
@@ -15,7 +15,7 @@
               </v-row>
               <v-row>
                 <v-col class="row-center">
-                  <p style="color: #01c4ff; font-weight: bold">Full Time</p>
+                  <p style="color: #01c4ff; font-weight: bold">{{announcement.period}}</p>
                 </v-col>
               </v-row>
             </div>
@@ -34,19 +34,10 @@
           <v-row justify="space-around">
             <v-col>
               <p>
-                Nuestro cliente en tecnología de la información con más de 39
-                años en el sector, enfocado en proyectos de Medio de Pago - POS.
-                <br />
-                Se encuentra en búsqueda de un PROGRAMADOR FRONT END<br />
-                Requisitos:<br />
-                -Experiencia en Angular<br />
-                -Nivel avanzado en HTML5 , CSS3, JavaScript, JQuery<br />
-                -Experiencia en creacion de Mockups, wireframes, prototipos,<br />
-                -Experiencia en desarrollo de aplicaciones web<br />
+                {{announcement.description}}
                 <br />
                 Ofrecemos:<br />
-                -Salario de $1.000.000<br />
-                -Horario de lunes a viernes de 9:00 a 18:00 hrs<br />
+                -Salario de ${{announcement.salary}}<br />
               </p>
             </v-col>
             <v-col class="col-center row-center">
@@ -86,12 +77,23 @@
 </template>
 
 <script>
+import AnnouncesService from "../services/Announces.service";
 export default {
   name: "DetallesAnuncio",
 
+
   data: () => ({
     dialog: false,
+    announcement: ""
   }),
+
+  async mounted() {
+    const id = this.$route.params.id;
+    const announcementResponse = await AnnouncesService.getById(id);
+    this.announcement = await announcementResponse.data;
+
+  
+  },
 };
 </script>
 
@@ -104,10 +106,6 @@ export default {
   width: 100vw;
   min-height: 100vh;
   height: auto;
-  background-image: url("https://i.pinimg.com/564x/90/61/74/906174f7d18a56bf917a232e65e6bf8f.jpg") !important;
-   background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .container {
   width: 100%;
@@ -152,7 +150,7 @@ export default {
   color: #01c4ff;
 }
 .containter-anuncio p {
-  color: #747373;
+  color: #ffffff;
 }
 .flex-end {
   display: flex;

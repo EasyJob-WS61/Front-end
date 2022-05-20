@@ -74,7 +74,9 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-btn v-on:click="register" color="#01C4FF" elevation="2" x-large>continuar</v-btn>
+            <v-btn v-on:click="register" color="#01C4FF" elevation="2" x-large
+              >continuar</v-btn
+            >
           </v-col>
         </v-row>
       </v-col>
@@ -89,22 +91,36 @@ export default {
 
   data: () => ({
     rules: [(value) => !!value || "Required."],
-    nombres:"",
-    apellidos:"",
-    correo:"",
-    contrasena:"",
-    contrasena2:"",
+    nombres: "",
+    apellidos: "",
+    correo: "",
+    contrasena: "",
+    contrasena2: "",
   }),
 
   methods: {
     async register() {
-      console.log( this.nombres, this.apellidos, this.correo, this.contrasena, this.contrasena2);
+      if (
+        (this.nombres == "",
+        this.apellidos == "",
+        this.correo == "",
+        this.contrasena == "",
+        this.contrasena2 == "")
+      ) {
+        alert("Todos los campos son obligatorios");
+        return
+      }
+      if (this.contrasena != this.contrasena2) {
+        alert("Las contraseñas no coinciden");
+        return;
+      }
       await RegisterService.create({
         name: this.nombres,
         lastname: this.apellidos,
         email: this.correo,
         password: this.contrasena,
-        photo: "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg"
+        photo:
+          "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg",
       });
     },
   },

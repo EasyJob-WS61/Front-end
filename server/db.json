@@ -24,51 +24,68 @@
   "announcements": [
     {
       "applicantId": "1",
-      "title": "Este es un anuncio",
-      "description": "Esta es la descripcion",
+      "title": "Desarrollador Backend C#",
+      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
       "salary": "5000",
       "date": "5/1/2022",
       "visible": true,
       "ability": "Programacion con Python",
-      "id": 3
+      "id": 1,
+      "period": "Full Time",
+      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
+      "place": "San Isidro,Lima"
     },
     {
       "applicantId": "1",
-      "title": "Tercer anuncio",
-      "description": "asd",
+      "title": "Desarrollador Backend Python",
+      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
       "salary": "5000",
-      "date": "5/1/2022",
-      "visible": true,
-      "ability": "Programacion con C++",
-      "id": 5
-    },
-    {
-      "applicantId": "1",
-      "title": "Cuarto anuncio",
-      "description": "adf",
-      "salary": "5000",
-      "date": "5/1/2022",
-      "visible": true,
-      "ability": "Programacion Web",
-      "id": 6
-    },
-    {
-      "applicantId": "1",
-      "title": "asd",
-      "description": "asd",
-      "salary": "200",
       "date": "5/1/2022",
       "visible": true,
       "ability": "Programacion con Python",
-      "id": 7
+      "id": 2,
+      "period": "Full Time",
+      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
+      "place": "San Isidro,Lima"
     },
     {
-      "name": "",
-      "lastname": "",
-      "email": "",
-      "password": "",
-      "photo": "https://img.freepik.com/foto-gratis/retrato-hermosa-modelo-rubia-sonriente-vestida-ropa-hipster-verano_158538-5482.jpg",
-      "id": 8
+      "applicantId": "1",
+      "title": "Desarrollador Backend Node",
+      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
+      "salary": "5000",
+      "date": "5/1/2022",
+      "visible": true,
+      "ability": "Programacion con Python",
+      "id": 3,
+      "period": "Full Time",
+      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
+      "place": "San Isidro,Lima"
+    },
+    {
+      "applicantId": "1",
+      "title": "Desarrollador Backend C#",
+      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
+      "salary": "5000",
+      "date": "5/1/2022",
+      "visible": true,
+      "ability": "Programacion con Python",
+      "id": 4,
+      "period": "Full Time",
+      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
+      "place": "San Isidro,Lima"
+    },
+    {
+      "applicantId": "1",
+      "title": "Desarrollador Backend C#",
+      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
+      "salary": "5000",
+      "date": "5/1/2022",
+      "visible": true,
+      "ability": "Programacion con Python",
+      "id": 5,
+      "period": "Full Time",
+      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
+      "place": "San Isidro,Lima"
     }
   ],
   "postulants": [

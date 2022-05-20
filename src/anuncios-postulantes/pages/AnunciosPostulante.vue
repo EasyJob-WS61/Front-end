@@ -19,22 +19,23 @@
             </div>
           </v-col>
         </v-row>
-        <v-row>
+
+        <v-row v-for="announcement in announcements" :key="announcement.id">
           <v-col>
-            <div class="containter-anuncio" v-on:click="changePage" >
+            <div class="containter-anuncio" v-on:click="changePage(announcement.id)">
               <v-row>
                 <v-col class="row-center">
-                  <p>San Isidro, Lima</p>
+                  <p>{{announcement.place}}</p>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
+                  <h2>{{announcement.title}}</h2>
                 </v-col>
                 <v-col class="flex-end">
                   <div class="img-post">
                     <img
-                      src="https://cms.minka.com.pe/images/tiendas/1627692670_claro_logo.jpg"
+                      :src="announcement.photo"
                       alt=""
                     />
                   </div>
@@ -42,138 +43,10 @@
               </v-row>
               <v-row>
                 <v-col class="row-center">
-                  <p>Full Time</p>
+                  <p>{{announcement.period}}</p>
                 </v-col>
                 <v-col class="row-center flex-end">
-                  <p>Publicado el 10 de Enero</p>
-                </v-col>
-              </v-row>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <div class="containter-anuncio" v-on:click="changePage">
-              <v-row>
-                <v-col class="row-center">
-                  <p>San Isidro, Lima</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
-                </v-col>
-                <v-col class="flex-end">
-                  <div class="img-post">
-                    <img
-                      src="https://cms.minka.com.pe/images/tiendas/1627692670_claro_logo.jpg"
-                      alt=""
-                    />
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <p>Full Time</p>
-                </v-col>
-                <v-col class="row-center flex-end">
-                  <p>Publicado el 10 de Enero</p>
-                </v-col>
-              </v-row>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <div class="containter-anuncio" v-on:click="changePage">
-              <v-row>
-                <v-col class="row-center">
-                  <p>San Isidro, Lima</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
-                </v-col>
-                <v-col class="flex-end">
-                  <div class="img-post">
-                    <img
-                      src="https://cms.minka.com.pe/images/tiendas/1627692670_claro_logo.jpg"
-                      alt=""
-                    />
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <p>Full Time</p>
-                </v-col>
-                <v-col class="row-center flex-end">
-                  <p>Publicado el 10 de Enero</p>
-                </v-col>
-              </v-row>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <div class="containter-anuncio" v-on:click="changePage">
-              <v-row>
-                <v-col class="row-center">
-                  <p>San Isidro, Lima</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
-                </v-col>
-                <v-col class="flex-end">
-                  <div class="img-post">
-                    <img
-                      src="https://cms.minka.com.pe/images/tiendas/1627692670_claro_logo.jpg"
-                      alt=""
-                    />
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <p>Full Time</p>
-                </v-col>
-                <v-col class="row-center flex-end">
-                  <p>Publicado el 10 de Enero</p>
-                </v-col>
-              </v-row>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <div class="containter-anuncio" v-on:click="changePage">
-              <v-row>
-                <v-col class="row-center">
-                  <p>San Isidro, Lima</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <h2>Desarrollador Backend C#</h2>
-                </v-col>
-                <v-col class="flex-end">
-                  <div class="img-post">
-                    <img
-                      src="https://cms.minka.com.pe/images/tiendas/1627692670_claro_logo.jpg"
-                      alt=""
-                    />
-                  </div>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="row-center">
-                  <p>Full Time</p>
-                </v-col>
-                <v-col class="row-center flex-end">
-                  <p>Publicado el 10 de Enero</p>
+                  <p>Publicado {{announcement.date}}</p>
                 </v-col>
               </v-row>
             </div>
@@ -185,17 +58,23 @@
 </template>
 
 <script>
+import AnnouncesService from "../services/Announces.service";
 export default {
   name: "AnunciosPostulantes",
 
   data: () => ({
     rules: [(value) => !!value || "Required."],
+    announcements: [],
   }),
 
   methods: {
-    changePage(){
-      this.$router.push('/postulants/1/announcements/1');
-    }
+    changePage(id) {
+      this.$router.push(`/postulants/1/announcements/${id}`);
+    },
+  },
+  async mounted() {
+    let response = await AnnouncesService.getAll();
+    this.announcements = response.data;
   },
 };
 </script>
@@ -209,10 +88,6 @@ export default {
   width: 100vw;
   min-height: 100vh;
   height: auto;
-  background-image: url("https://i.pinimg.com/564x/90/61/74/906174f7d18a56bf917a232e65e6bf8f.jpg") !important;
-   background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .container {
   width: 100%;
@@ -251,7 +126,7 @@ export default {
   color: #01c4ff;
 }
 .containter-anuncio p {
-  color: #747373;
+  color: #ffffff;
 }
 .flex-end {
   display: flex;
