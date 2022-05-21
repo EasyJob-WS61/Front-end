@@ -1,14 +1,14 @@
 {
   "applicants": [
     {
-      "id": 1,
       "name": "Claro Perú SAC",
       "description": "Empresa de telefonia internacional.",
       "ruc": "789765432",
       "photo": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Claro.svg",
       "website": "https://www.claro.com.pe/personas/",
       "email": "claro@gmail.com",
-      "password": "123456"
+      "password": "12345",
+      "id": 1
     },
     {
       "id": 2,
@@ -220,20 +220,28 @@
   ],
   "notification-applicant": [
     {
-      "id": 1,
+      "state": "pending",
       "applicantId": 1,
       "announcement_id": 1,
       "postulant_id": 1,
       "date": "2022-04-27",
-      "state": "pending"
+      "id": 1
+    },
+    {
+      "state": "pending",
+      "applicantId": 1,
+      "announcement_id": 1,
+      "postulant_id": 1,
+      "date": "Fri May 20 2022 00:29:48 GMT-0500 (hora estándar de Perú)",
+      "id": 2
     },
     {
       "applicantId": 1,
       "announcement_id": 1,
       "postulant_id": 1,
-      "date": "Fri May 20 2022 00:29:48 GMT-0500 (hora estándar de Perú)",
-      "id": 2,
-      "state": "pending"
+      "date": "Fri May 20 2022 23:29:31 GMT-0500 (hora estándar de Perú)",
+      "state": "pending",
+      "id": 3
     }
   ],
   "abilities": [

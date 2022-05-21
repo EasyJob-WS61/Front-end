@@ -16,7 +16,7 @@ export default {
   components: {ApplicantNavigation, PostulantNavegation},
   data: () => ({
     theme: 'lightTheme',
-    typeUser: "applicants",
+    typeUser: "postulants",
   }),
   methods: {
     changeTheme() {

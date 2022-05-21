@@ -18,15 +18,34 @@ const routes = [
     props: true
   },
   {
+    path: '/applicants/:idUser/profile',
+    name: "applicant-profile",
+    component: () => import('../applicants/pages/applicant-profile'),
+    props: true
+  },
+  {
     path: '/postulants/:idUser/premium/',
     name: "postulant-premium",
     component: () => import('../postulants/pages/postulant-premium'),
+    props: true
+  },
+
+  {
+    path: '/applicants/:idUser/premium/',
+    name: "applicant-premium",
+    component: () => import('../applicants/pages/applicant-premium'),
     props: true
   },
   {
     path: '/postulants/:idUser/chat/:idUser2',
     name: "postulant-chat",
     component: () => import('../postulants/pages/postulant-chat'),
+    props: true
+  },
+  {
+    path: '/applicants/:idUser/chat/:idUser2',
+    name: "applicant-chat",
+    component: () => import('../applicants/pages/applicant-chat'),
     props: true
   },
   {
@@ -57,6 +76,12 @@ const routes = [
     path: '/applicants/:idUser/announcements/add/',
     name: 'applicant-announcement-add',
     component: () => import('../applicants/pages/applicant-announcement-add'),
+    props: true
+  },
+  {
+    path: '/applicants/:idUser/search',
+    name: 'applicant-busqueda',
+    component: () => import('../applicants/pages/applicant-busqueda'),
     props: true
   },
   {

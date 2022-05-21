@@ -46,25 +46,25 @@
               <router-link :to="{ name: 'applicant-announcement', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Inicio</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
-              <router-link to="" class="text-decoration-none color-text-items">Perfil</router-link>
+              <router-link :to="{ name: 'applicant-profile', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Perfil</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
               <router-link :to="{ name: 'applicant-notification', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Notificaciones</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
-              <router-link to="" class="text-decoration-none color-text-items">Mensajes</router-link>
+              <router-link :to="{ name: 'applicant-chat', params: { idUser: this.idUser, idUser2: 0 }}" class="text-decoration-none color-text-items">Mensajes</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
-              <router-link to="" class="text-decoration-none color-text-items">Busqueda</router-link>
+              <router-link :to="{ name: 'applicant-busqueda', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Busqueda</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu ">
-              <router-link to="" class="text-decoration-none color-text-items">Premium</router-link>
+              <router-link :to="{ name: 'applicant-premium', params: { idUser: this.idUser }}" class="text-decoration-none color-text-items">Premium</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu">
               <router-link to="" class="text-decoration-none color-text-items">Agendar Entrevista</router-link>
             </v-list-item-title>
             <v-list-item-title class="pa-4 border-item-menu-logout">
-              <router-link to="" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
+              <router-link :to="{ name: 'login-account'}" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>

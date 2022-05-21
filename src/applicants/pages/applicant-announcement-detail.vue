@@ -47,41 +47,40 @@
                   <v-card-title>{{postulant.name}} {{postulant.lastname}}</v-card-title>
                   <v-card-subtitle>{{postulant.email}}</v-card-subtitle>
                 </v-col>
-                <v-col cols="4" class="v-col-md-3 d-flex justify-center align-center">
+                <v-col cols="8" class="v-col-md-3 d-flex justify-center align-center">
                   <div v-if="application.state === 'accepted'">
                     <v-btn disabled color="success">Aceptado</v-btn>
                   </div>
                   <div v-else-if="application.state === 'denied'">
                     <v-btn disabled color="error">Rechazado</v-btn>
                   </div>
-                  <div v-else-if="application.state === 'pending'">
-                    <v-btn @click="processAcceptedPostulant(key, 'accepted', 'aceptar')" icon small color="info" class="mr-2">
+
+                  <v-row v-else-if="application.state === 'pending'" class="justify-center">
+                    <v-btn @click.stop="confirmAcceptedPostulant = true" icon small color="info" class="mr-2">
                       <v-icon>mdi-check</v-icon>
                     </v-btn>
-                    <v-btn @click="processAcceptedPostulant(key, 'denied', 'rechazar')" icon small color="error" class="ml-2">
+
+                    <v-dialog
+                        v-model="confirmAcceptedPostulant">
+                      <v-card width="500px" class="px-4 py-8 d-flex flex-column justify-center align-center">
+                        <v-card-subtitle>¿Esta seguro de aceptar a
+                            <span class="error pl-1">{{postulant.name}} {{postulant.lastname}}</span>?
+                        </v-card-subtitle>
+                        <v-spacer></v-spacer>
+                        <v-card-actions>
+                          <v-btn color="error" @click="confirmAcceptedPostulant = !confirmAcceptedPostulant">Cancelar</v-btn>
+                          <v-btn color="info" @click="aceptar(application.applicantId, application.announcement_id, application.postulant_id, application.date,application.id),confirmAcceptedPostulant = !confirmAcceptedPostulant ">Aceptar</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+
+                    <v-btn @click="cancel(application.applicantId, application.announcement_id, application.postulant_id, application.date,application.id)" icon small color="error" class="ml-2">
                       <v-icon>mdi-close</v-icon>
                     </v-btn>
-                  </div>
+                  </v-row>
                 </v-col>
                 </row>
               </div>
-              <v-dialog
-                  transition="dialog-bottom-transition"
-                  v-model="confirmAcceptedPostulant"
-                  persistent>
-                <v-card width="500px" class="px-4 py-8 d-flex flex-column justify-center align-center">
-                  <div class="">
-                    <v-card-subtitle>¿Esta seguro de {{this.stateES}} a
-                      <span class="error pl-1">{{this.selectApplication.postulant.name}} {{this.selectApplication.postulant.lastname}}</span>?
-                    </v-card-subtitle>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <v-card-actions>
-                    <v-btn color="error" @click="confirmAcceptedPostulant = !confirmAcceptedPostulant">Cancelar</v-btn>
-                    <v-btn color="info" @click="updateApplications(this.selectApplicationKey, this.stateEN)">Aceptar</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
               </v-col>
             </div>
 
@@ -95,9 +94,9 @@
 <script>
 import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
 import ApplicantsService from "@/applicants/services/applicants.service";
-import ApplicationsService from "@/applicants/services/applications.service";
 import ApplicantNotificationService from  "@/applicants/services/applicants.notification.service"
 import PostulantsService from "@/postulants/services/postulants.service";
+import router from "@/router";
 export default {
   name: "applicant-announcement-detail",
   components: {},
@@ -111,6 +110,7 @@ export default {
     postulants: [],
     announcement: [],
     applicant: [],
+    aux: {},
     applications: [],
     errors: [],
   }),
@@ -148,39 +148,46 @@ export default {
             this.errors.push(error);
           })
     },
-    async getApplicationsByAnnouncementId() {
-      await ApplicationsService.getByAnnouncementId(this.$route.params.id)
-          .then(response => {
-            this.applications = response.data;
-            console.log(this.applications);
-          })
-          .catch(error => {
-            this.errors.push(error);
-          })
+    aceptar(applicant_id,announcementid, postulantid, date, id){
+      ApplicantNotificationService.getById().then(response=>{
+        this.aux= response.data;
+      });
+      this.aux.state= "accepted";
+      this.aux.applicantId= applicant_id;
+      this.aux.announcement_id= announcementid;
+      this.aux.postulant_id= postulantid;
+      this.aux.date=date;
+
+      ApplicantNotificationService.update(id,this.aux);
+
+      ApplicantNotificationService.getByAnnouncementId(this.$route.params.id).then(response=>{
+        this.applications= response.data;
+      });
+      PostulantsService.getAll().then(response=>{
+        this.postulants= response.data;
+      });
+      router.replace(this.$route.params)
     },
-    async updateApplications(key, newState) {
-      let applicationUpdated = {
-        postulantId: this.applications[key].postulantId,
-        announcementId: this.applications[key].announcementId,
-        state: newState,
-        date: this.applications[key].date
-      }
-      await ApplicationsService.update(this.applications[key].id, applicationUpdated)
-          .then(response => {
-            this.applications[key].state = response.data.state;
-          })
-          .catch(error => {
-            this.errors.push(error);
-          })
-      this.confirmAcceptedPostulant = false;
+    cancel(applicant_id,announcementid, postulantid, date, id){
+      ApplicantNotificationService.getById().then(response=>{
+        this.aux= response.data;
+      });
+      this.aux.state= "denied";
+      this.aux.applicantId= applicant_id;
+      this.aux.announcement_id= announcementid;
+      this.aux.postulant_id= postulantid;
+      this.aux.date=date;
+
+      ApplicantNotificationService.update(id,this.aux);
+
+      ApplicantNotificationService.getByAnnouncementId(this.$route.params.id).then(response=>{
+        this.applications= response.data;
+      });
+      PostulantsService.getAll().then(response=>{
+        this.postulants= response.data;
+      });
+      router.replace(this.$route.params)
     },
-    processAcceptedPostulant(key, state, stateText) {
-      this.selectApplication = this.applications[key];
-      this.selectApplicationKey = key;
-      this.stateEN = state;
-      this.stateES = stateText;
-      this.confirmAcceptedPostulant = !this.confirmAcceptedPostulant
-    }
   }
 }
 </script>
