@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import NotificationService from  "@/postulants/services/postulants.notification.service";
+//import NotificationService from  "@/postulants/services/postulants.notification.service";
 import router from "@/router";
 import ApplicantNotificationService from "@/applicants/services/applicants.notification.service";
 export default {
