@@ -145,53 +145,6 @@
       "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/640px-A_small_cup_of_coffee.JPG"
     }
   ],
-  "notifications": [
-    {
-      "id": 1,
-      "postulant_id": 1,
-      "announcement_id": 1,
-      "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
-      "description": "Fuiste elegido por Heber Cordova para Claro SAC",
-      "date": "2022-04-27",
-      "refused": 0,
-      "success": 1,
-      "feedback": ""
-    },
-    {
-      "id": 2,
-      "postulant_id": 2,
-      "announcement_id": 2,
-      "title": "Has aplicado para: Se busca programador en Back-end",
-      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
-      "date": "2022-04-27",
-      "refused": 0,
-      "success": 0,
-      "feedback": ""
-    },
-    {
-      "id": 3,
-      "applicant_id": 2,
-      "postulant_id": 1,
-      "title": "Has aplicado para: Se busca programador en Back-end",
-      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
-      "date": "2022-04-27",
-      "refused": 0,
-      "success": 0,
-      "feedback": ""
-    },
-    {
-      "id": 4,
-      "applicant_id": 1,
-      "postulant_id": 1,
-      "announcement_id": 2,
-      "title": "¡Sigue intentando!",
-      "description": "Revisa el feedback para mejorar tus habilidades.",
-      "date": "2022-04-27",
-      "refused": 1,
-      "success": 0,
-      "feedback": "Hemos recibido tu candidatura para el proceso de selección y hemos decidido no proceder con tu candidatura. En estos momentos necesitamos incorporar a alguien que se ajuste mejor al perfil definido.\n\nNo obstante, te animamos a que nos sigas la pista, a nosotros/as y a nuestra vacantes, ya que estamos en pleno proceso de crecimiento, y quizás en otra ocasión nuestras motivaciones se alineen.\n\n¡Gracias por tu confianza y mucha suerte!"
-    }
-  ],
   "Chats": [
     {
       "id": 1,
@@ -220,19 +173,25 @@
   ],
   "notification-applicant": [
     {
-      "state": "pending",
+      "state": "accepted",
       "applicantId": 1,
       "announcement_id": 1,
       "postulant_id": 1,
       "date": "2022-04-27",
-      "id": 1
+      "id": 1,
+      "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
+      "description": "Fuiste elegido por Heber Cordova para Claro SAC",
+      "feedback": ""
     },
     {
-      "state": "pending",
-      "applicantId": 1,
+      "state": "accepted",
+      "applicantId": 2,
       "announcement_id": 1,
       "postulant_id": 1,
       "date": "Fri May 20 2022 00:29:48 GMT-0500 (hora estándar de Perú)",
+      "title": "¡En hora buena! Fuiste aceptado para un puesto laboral",
+      "description": "Fuiste elegido por Claro Perú SAC",
+      "feedback": "",
       "id": 2
     },
     {
@@ -240,8 +199,22 @@
       "announcement_id": 1,
       "postulant_id": 1,
       "date": "Fri May 20 2022 23:29:31 GMT-0500 (hora estándar de Perú)",
+      "state": "denied",
+      "id": 3,
+      "title": "¡Sigue intentando!",
+      "description": "Revisa el feedback para mejorar tus habilidades.",
+      "feedback": "Hemos recibido tu candidatura para el proceso de selección y hemos decidido no proceder con tu candidatura. En estos momentos necesitamos incorporar a alguien que se ajuste mejor al perfil definido.\n\nNo obstante, te animamos a que nos sigas la pista, a nosotros/as y a nuestra vacantes, ya que estamos en pleno proceso de crecimiento, y quizás en otra ocasión nuestras motivaciones se alineen.\n\n¡Gracias por tu confianza y mucha suerte!"
+    },
+    {
+      "applicantId": 1,
+      "announcement_id": 2,
+      "postulant_id": 1,
+      "date": "Sat May 21 2022 21:04:15 GMT-0500 (hora estándar de Perú)",
       "state": "pending",
-      "id": 3
+      "title": "Has aplicado para Desarrollador Backend C#",
+      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
+      "feedback": "",
+      "id": 4
     }
   ],
   "abilities": [

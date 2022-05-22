@@ -6,7 +6,7 @@
         <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Notificaciones</p>
       </v-card>
       <v-raw v-for="notification in notifications" :key="notification" cols="8" class="ma-0 pa-4  max-wight-100 " >
-        <v-card v-if="notification.postulant_id==idUser"  class="pa-4 mb-3" >
+        <v-card v-if="notification.applicantId==idUser"  class="pa-4 mb-3" >
           <p class="font-weight-medium blackletter" style="font-size: 12px; text-align: right">{{notification.date}}</p>
 
           <v-row>

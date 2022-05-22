@@ -12,10 +12,10 @@
             <p class="font-weight-medium blackletter" style="font-size: 12px; text-align: right">{{notification.date}}</p>
 
             <v-row>
-              <v-col v-if="notification.success===1" cols="1">
+              <v-col v-if="notification.state==='accepted'" cols="1">
                 <v-img class="mx-auto" width="50px" v-bind:src="require('../../core/img/check.png')" alt="premium"></v-img>
               </v-col>
-              <v-col v-if="notification.refused===1" cols="1">
+              <v-col v-if="notification.state==='denied'" cols="1">
                 <v-img class="mx-auto" width="60px" v-bind:src="require('../../core/img/Frame 1.png')" alt="premium"></v-img>
               </v-col>
               <v-col>
@@ -24,7 +24,7 @@
               </v-col>
             </v-row>
 
-            <v-card-actions class="justify-end " v-if="notification.refused===1">
+            <v-card-actions class="justify-end " v-if="notification.state==='denied'">
                <v-btn class="rounded-lg btn-info" @click="goToFeedback(notification.id)" >Más información</v-btn>
              </v-card-actions>
 
@@ -37,6 +37,7 @@
 <script>
 import NotificationService from  "@/postulants/services/postulants.notification.service";
 import router from "@/router";
+import ApplicantNotificationService from "@/applicants/services/applicants.notification.service";
 export default {
   name: "postulant-notification",
   components: {},
@@ -47,7 +48,7 @@ export default {
   }),
   async created() {
     try {
-      const response1 = await NotificationService.getAll();
+      const response1 = await ApplicantNotificationService.getAll();
       this.notifications = response1.data;
       this.idUser=this.$route.params.idUser;
     }

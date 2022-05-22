@@ -6,7 +6,7 @@
     </v-btn>
   </v-row>
   <v-row v-for="notification in notifications" :key="notification"  style="margin-top: 30px; justify-content: center" class="ma-2 pa-0" >
-    <v-col v-if="notification.id==actualid && notification.refused===1" cols="7">
+    <v-col v-if="notification.id==actualid && notification.state==='denied'" cols="7">
       <v-card>
         <v-card>
         <v-row>
@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import NotificationService from "@/postulants/services/postulants.notification.service";
 import router from "@/router";
+import ApplicantNotificationService from "@/applicants/services/applicants.notification.service";
 
 export default {
   name: "postulant-feedback",
@@ -44,7 +44,7 @@ export default {
   }),
   async created() {
     try {
-      const response1 = await NotificationService.getAll();
+      const response1 = await ApplicantNotificationService.getAll();
       this.notifications = response1.data;
 
       this.actualid=this.$route.params.idNotification;

@@ -157,7 +157,9 @@ export default {
       this.aux.announcement_id= announcementid;
       this.aux.postulant_id= postulantid;
       this.aux.date=date;
-
+      this.aux.title="¡En hora buena! Fuiste aceptado para un puesto laboral";
+      this.aux.description="Fuiste elegido por "+this.applicant.name;
+      this.aux.feedback="";
       ApplicantNotificationService.update(id,this.aux);
 
       ApplicantNotificationService.getByAnnouncementId(this.$route.params.id).then(response=>{
@@ -177,7 +179,9 @@ export default {
       this.aux.announcement_id= announcementid;
       this.aux.postulant_id= postulantid;
       this.aux.date=date;
-
+      this.aux.title="¡Sigue intentando!";
+      this.aux.description="Revisa el feedback para mejorar tus habilidades";
+      this.aux.feedback="Hemos recibido tu candidatura para el proceso de selección y hemos decidido no proceder con tu candidatura. En estos momentos necesitamos incorporar a alguien que se ajuste mejor al perfil definido.\n\nNo obstante, te animamos a que nos sigas la pista, a nosotros/as y a nuestra vacantes, ya que estamos en pleno proceso de crecimiento, y quizás en otra ocasión nuestras motivaciones se alineen.\n\n¡Gracias por tu confianza y mucha suerte!";
       ApplicantNotificationService.update(id,this.aux);
 
       ApplicantNotificationService.getByAnnouncementId(this.$route.params.id).then(response=>{

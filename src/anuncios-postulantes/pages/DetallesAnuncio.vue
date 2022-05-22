@@ -103,6 +103,9 @@ export default {
       this.notification.postulant_id= parseInt(this.$route.params.id);
       this.notification.date=Date().toLocaleString();
       this.notification.state="pending";
+      this.notification.title="Has aplicado para "+this.announcement.title;
+      this.notification.description="Te avisaremos en cuanto haya una actualización del solicitador del empleo";
+      this.notification.feedback="";
       ApplicantNotificationService.create(this.notification);
     }
   }
