@@ -2,6 +2,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import SignInSolicitante from '../signs-in/pages/sign-in-solicitante.vue'
 import AnunciosPostulantes from './../anuncios-postulantes/pages/AnunciosPostulante.vue'
 import DetallesAnuncio from '../anuncios-postulantes/pages/DetallesAnuncio.vue'
+import PostulantProfile from '../postulants/pages/postulant-profile.vue'
+import PostulantEditProfile from '../postulants/pages/postulant-edit-profile.vue'
+import ProjectView from '../projects/pages/project-view.vue'
+import AddProject from '../projects/pages/add-project.vue'
 
 const routes = [
   {
@@ -85,6 +89,12 @@ const routes = [
     props: true
   },
   {
+    path: '/postulants/:idUser/profile/',
+    name: 'postulant-profile',
+    component : PostulantProfile,
+    props:true
+  },
+  {
     path: '/signup/applicants',
     name: 'signup',
     component: SignInSolicitante
@@ -98,6 +108,21 @@ const routes = [
     path: '/postulants/:id/announcements/:a_id',
     name: 'detalles-anuncio',
     component: DetallesAnuncio
+  },
+  {
+    path: '/postulants/:id/edit-profile',
+    name: 'postulant-edit-profile',
+    component: PostulantEditProfile
+  },
+  {
+    path: '/projects/:id/view',
+    name: 'project-view',
+    component: ProjectView
+  },
+  {
+    path: '/postulant/:id/add-project',
+    name: 'add-project',
+    component: AddProject
   }
 ]
 
