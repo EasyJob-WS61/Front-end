@@ -1,39 +1,41 @@
 <template>
-  <row class="ma-0 pa-0 d-flex " style="height: 680px " >
+  <v-container>
+    <row class="ma-0 pa-0 d-flex" style="height: 680px " >
 
-    <v-col cols="18" class="ma-0 pa-4  " style="margin-top: 100px">
-      <v-card class="py-2 mb-4 ">
-        <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Notificaciones</p>
-      </v-card>
-      <v-raw v-for="notification in notifications" :key="notification" cols="8" class="ma-0 pa-4  max-wight-100 " >
-        <v-card v-if="notification.applicantId==idUser"  class="pa-4 mb-3" >
-          <p class="font-weight-medium blackletter" style="font-size: 12px; text-align: right">{{notification.date}}</p>
+      <v-col cols="18" class="ma-0 pa-4  " style="margin-top: 100px">
+        <v-card class="py-2 mb-4 ">
+          <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Notificaciones</p>
+        </v-card>
+        <v-raw v-for="notification in notifications" :key="notification" cols="8" class="ma-0 pa-4  max-wight-100 " >
+          <v-card v-if="notification.applicantId==idUser"  class="pa-4 mb-3" >
+            <p class="font-weight-medium blackletter" style="font-size: 12px; text-align: right">{{notification.date}}</p>
 
-          <v-row>
-            <v-col v-for="postulant in postulants" :key="postulant" >
-              <v-row v-if="postulant.id==notification.postulant_id">
+            <v-row>
+              <v-col v-for="postulant in postulants" :key="postulant" >
+                <v-row v-if="postulant.id==notification.postulant_id">
 
                   <v-card-title  class="primary">
                     {{postulant.name}} {{postulant.lastname}} ha postulado a un anuncio tuyo</v-card-title>
 
-                <br>
+                  <br>
                   <v-row v-for="anuncio in anuncios" :key="anuncio">
 
                     <p v-if="anuncio.id==notification.announcement_id" class="font-weight-medium blackletter"
                        style="margin-left: 30px">"{{anuncio.title}}"  tiene un nuevo postulante</p>
                   </v-row>
-                <br>
-              </v-row>
-            </v-col>
-          </v-row>
+                  <br>
+                </v-row>
+              </v-col>
+            </v-row>
 
-          <v-card-actions class="justify-end " >
-            <v-btn class="rounded-lg btn-info" @click="goToAnoun(notification.announcement_id)" >Ir a detalles del anuncio</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-raw>
-    </v-col>
-  </row>
+            <v-card-actions class="justify-end " >
+              <v-btn class="rounded-lg btn-info" @click="goToAnoun(notification.announcement_id)" >Ir a detalles del anuncio</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-raw>
+      </v-col>
+    </row>
+  </v-container>
 </template>
 
 <script>
@@ -69,7 +71,8 @@ export default {
   },
   methods: {
     goToAnoun(id) {
-      router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id}})    },
+      router.push({ name: 'applicant-announcement-detail', params: {idUser: this.$route.params.idUser, id: id}})
+    },
   }
 }
 </script>

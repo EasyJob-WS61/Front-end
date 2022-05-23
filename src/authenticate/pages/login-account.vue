@@ -13,7 +13,10 @@
     </v-row>
 
     <v-row justify="center" align-content="center">
-        <v-btn class="primary" @click="Login(this.email,this.password)">Ingresar</v-btn>
+        <v-btn class="primary" @click="LoginPostulant">Ingresar (Postulants)</v-btn>
+    </v-row>
+    <v-row justify="center" align-content="center" style="margin-top: 20px">
+      <v-btn class="primary" @click="LoginApplicants">Ingresar (Applicants)</v-btn>
     </v-row>
     <v-row justify="center" align-content="center" style="margin-top: 20px">
       <v-btn class="primary" style="background-color: #02EDB3">Registrarse</v-btn>
@@ -30,7 +33,6 @@
 <script>
 import postulantsService from "@/postulants/services/postulants.service";
 import applicantsService from "@/applicants/services/applicants.service";
-
 export default {
   name: "login-account",
   data: () => ({
@@ -70,9 +72,14 @@ export default {
            this.$router.push('/applicants/'+this.applicant[0].id+'/announcements');
          }
        }
-    }
+    },
+    LoginPostulant() {
+      this.$emit("logged-postulant");
+    },
+    LoginApplicants() {
+      this.$emit("logged-applicant");
+    },
   }
-
 }
 </script>
 

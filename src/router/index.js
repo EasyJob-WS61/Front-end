@@ -10,11 +10,14 @@ import AddProject from '../projects/pages/add-project.vue'
 const routes = [
   {
     path: '/',
+    name: 'root',
+  },
+  {
+    path: '/sign-in',
     name: 'login-account',
-    component: () => import('../postulants/pages/login-account'),
+    component: () => import('../authenticate/pages/login-account'),
     props: true
   },
-
   {
     path: '/postulants/:idUser/notifications/:idNotification/feedback',
     name: "postulant-feedback",

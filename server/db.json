@@ -215,6 +215,17 @@
       "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
       "feedback": "",
       "id": 4
+    },
+    {
+      "applicantId": 1,
+      "announcement_id": 1,
+      "postulant_id": 1,
+      "date": "Mon May 23 2022 07:16:30 GMT-0500 (Peru Standard Time)",
+      "state": "pending",
+      "title": "Has aplicado para Desarrollador Backend C#",
+      "description": "Te avisaremos en cuanto haya una actualización del solicitador del empleo",
+      "feedback": "",
+      "id": 5
     }
   ],
   "abilities": [
@@ -238,5 +249,6 @@
       "name": "Programacion Back-end con c# y asp.net",
       "description": "Programacion de una API usando c# y asp.net"
     }
-  ]
+  ],
+  "users": []
 }

@@ -55,8 +55,8 @@
             <v-list-item-title class="pa-4 border-item-menu ">
               <router-link :to="{name: 'postulant-premium', params:{idUser: this.idUser}}"  class="text-decoration-none color-text-items">Premium</router-link>
             </v-list-item-title>
-            <v-list-item-title class="pa-4 border-item-menu-logout">
-              <router-link :to="{name: 'login-account'}" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
+            <v-list-item-title class="pa-4 border-item-menu-logout" @click="SignOut">
+              <p class="color-text-items">Cerrar Sesion</p>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
@@ -93,34 +93,30 @@ export default {
     },
     goToHome() {
       this.routes.push("hello");
+    },
+    SignOut() {
+      this.$emit("sign-out");
     }
   },
 }
 </script>
 
-<style scoped>.border-item-menu {
-  border-bottom: 3px solid #01C4FF;
+<style scoped>
+.border-item-menu {
+  border-bottom: 3px solid #8C8C8C;
   cursor: pointer;
-  font-family: Roboto;
-  font-size: 20px;
-  color: #01C4FF;
 }
 .border-item-menu:hover {
-  border-bottom: 3px solid #02EDB3;
-  color: #02EDB3;
+  border-bottom: 3px solid #01C4FF;
+  color: #01C4FF;
 }
 .border-item-menu-logout {
-  border-bottom: 3px solid #01C4FF;
+  border-bottom: 3px solid #8C8C8C;
   cursor: pointer;
-  font-family: Roboto;
-  font-size: 20px;
-  color: #01C4FF;
 }
 .border-item-menu-logout:hover {
   border-bottom: 3px solid #FF5A5A;
   color: #FF5A5A;
-  font-family: Roboto;
-  font-size: 20px;
 }
 .color-text-items {
   color: inherit;
@@ -130,7 +126,5 @@ export default {
 }
 .primary {
   color: #01C4FF;
-  font-family: Roboto;
-
 }
 </style>

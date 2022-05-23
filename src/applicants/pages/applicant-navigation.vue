@@ -63,8 +63,8 @@
             <v-list-item-title class="pa-4 border-item-menu">
               <router-link to="" class="text-decoration-none color-text-items">Agendar Entrevista</router-link>
             </v-list-item-title>
-            <v-list-item-title class="pa-4 border-item-menu-logout">
-              <router-link :to="{ name: 'login-account'}" class="text-decoration-none color-text-items">Cerrar Sesión</router-link>
+            <v-list-item-title class="pa-4 border-item-menu-logout" @click="signOut">
+              <p class="color-text-items">Cerrar Sesion</p>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
@@ -105,7 +105,10 @@ export default {
     },
     goToHome() {
       this.routes.push("hello");
-    }
+    },
+    signOut() {
+      this.$emit("sign-out");
+    },
   },
 }
 </script>
