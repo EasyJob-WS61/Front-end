@@ -91,38 +91,45 @@ const routes = [
   {
     path: '/postulants/:idUser/profile/',
     name: 'postulant-profile',
-    component : PostulantProfile,
-    props:true
+    component: PostulantProfile,
+    props: true
   },
   {
     path: '/signup/applicants',
     name: 'signup',
-    component: SignInSolicitante
+    component: SignInSolicitante,
+    props: true
   },
   {
     path: '/postulants/:id/announcements',
     name: 'anuncios-postulantes',
-    component: AnunciosPostulantes
+    component: AnunciosPostulantes,
+    props: true
   },
   {
     path: '/postulants/:id/announcements/:a_id',
     name: 'detalles-anuncio',
-    component: DetallesAnuncio
+    component: DetallesAnuncio,
+    props: true
   },
   {
     path: '/postulants/:id/edit-profile',
     name: 'postulant-edit-profile',
     component: PostulantEditProfile
+    ,
+    props: true
   },
   {
     path: '/projects/:id/view',
     name: 'project-view',
-    component: ProjectView
+    component: ProjectView,
+    props: true
   },
   {
     path: '/postulant/:id/add-project',
     name: 'add-project',
-    component: AddProject
+    component: AddProject,
+    props: true
   }
 ]
 

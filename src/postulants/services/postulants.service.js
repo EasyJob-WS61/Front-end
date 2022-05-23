@@ -14,7 +14,7 @@ class PostulantsService{
     }
 
     update(id, data) {
-        return http.put(`/postulants/${id}`, data);
+        return http.patch(`/postulants/${id}`, data);
     }
 
     delete(id) {

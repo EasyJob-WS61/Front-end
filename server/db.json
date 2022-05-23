@@ -91,13 +91,13 @@
   "postulants": [
     {
       "id": "1",
-      "name": "Sebastian",
-      "lastname": "Gutierrez",
+      "name": "Seb ",
+      "lastname": "Lastname",
       "description": "Me considero una persona responsable y trabajadora.",
-      "email": "sebastian@gmail.com",
+      "email": "jhon@gmail.com",
       "password": "123456",
-      "github_user": "hbcord",
-      "photo": "https://www.crushpixel.com/big-static11/preview4/smiling-man-front-group-people-676322.jpg"
+      "github_user": "hbcordova",
+      "photo": "https://st4.depositphotos.com/1049680/i/600/depositphotos_287770354-stock-photo-handsome-man-smiling-cheerful-with.jpg"
     },
     {
       "id": "2",
