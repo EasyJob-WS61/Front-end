@@ -48,14 +48,14 @@
                     <v-col><h3 style="text-align:center">{{project.title}}</h3></v-col>
                 </v-row>
             </v-col>
-            
+
         </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import postulantProfileService from '../services/postulant.profile.service';
+import postulantProfileService from '../services/postulant.profile.service.js';
 
 export default {
   name: "postulant-profile",
@@ -64,7 +64,7 @@ export default {
       type: Number,
       required: true
     }
-  
+
   },
   data(){
     return{
@@ -75,16 +75,16 @@ export default {
   methods:{
     goToEdit(){
       this.$router.push({name: 'postulant-edit-profile', params: {id: this.$route.params.idUser}});
-    
+
     },
     goToAddProyect(){
       this.$router.push({name: 'add-project', params: {id: this.$route.params.idUser}});
     },
     goToViewProyect(idProyect){
       this.$router.push({name: 'project-view', params: {id: idProyect}});
-    
+
     }
-    
+
   },
   mounted(){
     postulantProfileService.getPostulantProfile(parseInt(this.$route.params.idUser)).then(response => {
