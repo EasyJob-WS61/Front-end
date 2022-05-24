@@ -3,21 +3,18 @@
     <v-row justify="center" fluid class="container">
       <v-col cols="12">
         <v-row>
-          <v-col cols="12"><h1>Nombre</h1></v-col>
+          <v-col cols="12"><h1>{{postulant.name}} {{postulant.lastname}}</h1></v-col>
         </v-row>
         <v-row>
           <v-col cols="4">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnysQxrChDCkqod6dLjrlbo5AxHkhjzbElJw&usqp=CAU"
+            <img style="width: inherit"
+              :src="postulant.photo"
               alt=""
             />
           </v-col>
           <v-col>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-              blanditiis consequatur accusamus explicabo nam? Sed voluptas
-              labore assumenda repellat incidunt, corrupti laudantium minima
-              impedit! Quia incidunt consequuntur officia architecto laborum?
+              {{postulant.description}}
             </p>
           </v-col>
         </v-row>
@@ -28,59 +25,77 @@
         </v-row>
         <v-row>
           <v-col cols="4" class="margin-top align-center">
-            <h3>Redes Sociales:</h3>
+            <h3>Contacto:</h3>
           </v-col>
           <v-col class="margin-top">
-            <ul>
-              <li>Facebook</li>
-              <li>Twitter</li>
-              <li>Instagram</li>
-            </ul>
+            <h5>{{postulant.email}}</h5>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" class="justify-end">
-            <v-btn color="primary" elevation="3" x-large text>EDITAR</v-btn>
+            <v-btn color="primary" elevation="3" @click="goToEdit()" x-large text>EDITAR</v-btn>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12"><h2>Proyectos</h2></v-col>
         </v-row>
         <v-row>
-            <v-col ><img class="img-project" src="https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-46-512.png" alt=""></v-col>
+            <v-col cols="2" style="cursor:pointer;"><img class="img-project" src="https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-46-512.png" alt=""  @click="goToAddProyect()" ></v-col>
             <!--Proyecto-->
-            <v-col cols="3" class="justify-center align-center">
-                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" src="https://www.hiberus.com/crecemos-contigo/wp-content/uploads/2020/04/trello.jpg" alt=""></v-row>
+            <v-col cols="3" style="cursor:pointer;"  class="justify-center align-center" v-for="project in projects" :key="project.id"   @click="goToViewProyect(project.id)">
+                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" :src="project.photo" alt=""></v-row>
                 <v-row>
-                    <v-col><h3 style="text-align:center">Nombre del proyecto</h3></v-col>
+                    <v-col><h3 style="text-align:center">{{project.title}}</h3></v-col>
                 </v-row>
             </v-col>
-            <v-col cols="3" class="justify-center align-center">
-                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" src="https://www.hiberus.com/crecemos-contigo/wp-content/uploads/2020/04/trello.jpg" alt=""></v-row>
-                <v-row>
-                    <v-col><h3 style="text-align:center">Nombre del proyecto</h3></v-col>
-                </v-row>
-            </v-col>
-            <v-col cols="3" class="justify-center align-center">
-                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" src="https://www.hiberus.com/crecemos-contigo/wp-content/uploads/2020/04/trello.jpg" alt=""></v-row>
-                <v-row>
-                    <v-col><h3 style="text-align:center">Nombre del proyecto</h3></v-col>
-                </v-row>
-            </v-col>
-            <v-col cols="3" class="justify-center align-center">
-                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" src="https://www.hiberus.com/crecemos-contigo/wp-content/uploads/2020/04/trello.jpg" alt=""></v-row>
-                <v-row>
-                    <v-col><h3 style="text-align:center">Nombre del proyecto</h3></v-col>
-                </v-row>
-            </v-col>
+            
         </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
+import postulantProfileService from '../services/postulant.profile.service';
+
 export default {
   name: "postulant-profile",
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  
+  },
+  data(){
+    return{
+      postulant:"",
+      projects:[],
+    };
+  },
+  methods:{
+    goToEdit(){
+      this.$router.push({name: 'postulant-edit-profile', params: {id: this.$route.params.idUser}});
+    
+    },
+    goToAddProyect(){
+      this.$router.push({name: 'add-project', params: {id: this.$route.params.idUser}});
+    },
+    goToViewProyect(idProyect){
+      this.$router.push({name: 'project-view', params: {id: idProyect}});
+    
+    }
+    
+  },
+  mounted(){
+    postulantProfileService.getPostulantProfile(parseInt(this.$route.params.idUser)).then(response => {
+      this.postulant = response.data;
+      console.log(this.postulant);
+    });
+    postulantProfileService.getProjectsByPostulant(parseInt(this.$route.params.idUser)).then(response => {
+      this.projects = response.data;
+      console.log(this.projects);
+    });
+  },
 };
 </script>
 
@@ -124,5 +139,8 @@ h2 {
 .img-project-2{
     height: 9.5pc;
     width: 15pc;
+}
+.container{
+    width: 100%;
 }
 </style>
