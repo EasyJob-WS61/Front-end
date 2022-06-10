@@ -3,52 +3,65 @@
     <v-row justify="center" fluid class="container">
       <v-col cols="12">
         <v-row>
-          <v-col cols="12"><h1>{{postulant.name}} {{postulant.lastname}}</h1></v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="4">
+          <v-col cols="12" class="d-flex align-center">
+            <h1 class="mt-2 mr-4">{{postulant.name}} {{postulant.lastname}}</h1>
+            <v-btn class="rounded-0" color="warning" size="x-small" @click="dialogEditProfile = !dialogEditProfile" icon="mdi-pencil"></v-btn>
+          </v-col>
+          <v-col cols="12" class="v-col-md-6">
             <img style="width: inherit"
-              :src="postulant.photo"
-              alt=""
+                 :src="postulant.photo"
+                 alt=""
             />
           </v-col>
-          <v-col>
-            <p>
-              {{postulant.description}}
-            </p>
+          <v-col cols="12" class="v-col-md-6 d-flex flex-column justify-center">
+            <p>{{postulant.description}}</p>
+            <p><span class="font-weight-bold">Email:</span> {{postulant.email}}</p>
           </v-col>
         </v-row>
+        <v-dialog v-model="dialogEditProfile">
+          <postulant-edit-profile v-bind:user-id="userId" v-on:close-edit-profile="closeEditDialog($event)"></postulant-edit-profile>
+        </v-dialog>
         <v-row>
-          <v-col cols="4" class="margin-top">
-            <h3>Especialidades:</h3>
+          <v-col cols="12" class="d-flex justify-space-between mt-4">
+            <h2>Proyectos</h2>
+            <v-btn color="success" elevation="3" @click="dialogAddProject = !dialogAddProject" x-large text>Agregar</v-btn>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="4" class="margin-top align-center">
-            <h3>Contacto:</h3>
+          <v-col cols="12" class="mt-2 v-col-md-4" v-for="project in projects" :key="project.id">
+            <v-card height="350px" class="d-flex flex-column">
+              <div class="h-100">
+                <v-img height="200px" cover="true" :src="project.photo" alt=""></v-img>
+                <v-card-title>{{project.title}}</v-card-title>
+                <v-card-subtitle>{{project.description}}</v-card-subtitle>
+              </div>
+              <v-card-actionsn class="align-end my-2 mx-1">
+                <v-btn
+                    color="info"
+                    class="mr-2"
+                    variant="text"
+                    @click="goToViewProyect(project.id)"
+                >
+                  Mostrar
+                </v-btn>
+                <v-btn
+                    color="error"
+                    variant="text"
+                    @click="openDeleteDialog(project.title, project.id)"
+                >
+                  Eliminar
+                </v-btn>
+              </v-card-actionsn>
+            </v-card>
           </v-col>
-          <v-col class="margin-top">
-            <h5>{{postulant.email}}</h5>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="justify-end">
-            <v-btn color="primary" elevation="3" @click="goToEdit()" x-large text>EDITAR</v-btn>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12"><h2>Proyectos</h2></v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="2" style="cursor:pointer;"><img class="img-project" src="https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-46-512.png" alt=""  @click="goToAddProyect()" ></v-col>
-            <!--Proyecto-->
-            <v-col cols="3" style="cursor:pointer;"  class="justify-center align-center" v-for="project in projects" :key="project.id"   @click="goToViewProyect(project.id)">
-                <v-row><img class="img-project-2" style="margin-bottom: 1pc;" :src="project.photo" alt=""></v-row>
-                <v-row>
-                    <v-col><h3 style="text-align:center">{{project.title}}</h3></v-col>
-                </v-row>
-            </v-col>
-
+          <v-dialog v-model="dialogDeleteProject">
+            <postulant-delete-project
+                v-bind:project-id="selectedDelete.id"
+                v-bind:project-name="selectedDelete.name"
+                v-on:close-delete-project="closeDeleteProject($event)"
+            ></postulant-delete-project>
+          </v-dialog>
+          <v-dialog v-model="dialogAddProject">
+            <postulant-add-project v-on:close-add-project="closeAddProject($event)"></postulant-add-project>
+          </v-dialog>
         </v-row>
       </v-col>
     </v-row>
@@ -56,45 +69,55 @@
 </template>
 <script>
 import postulantProfileService from '../services/postulant.profile.service.js';
-
+import postulantEditProfile from "@/postulants/pages/postulant-edit-profile";
+import postulantDeleteProject from "@/postulants/pages/postulant-delete-project";
+import postulantAddProject from "@/postulants/pages/postulant-add-project";
 export default {
   name: "postulant-profile",
-  props: {
-    id: {
-      type: Number,
-      required: true
-    }
-
-  },
+  components: {postulantEditProfile, postulantDeleteProject, postulantAddProject},
   data(){
     return{
+      userId: 1,
+      dialogEditProfile: false,
+      dialogDeleteProject: false,
+      dialogAddProject: false,
       postulant:"",
+      selectedDelete: { id: null, name: ""},
       projects:[],
     };
   },
   methods:{
-    goToEdit(){
-      this.$router.push({name: 'postulant-edit-profile', params: {id: this.$route.params.idUser}});
-
-    },
-    goToAddProyect(){
-      this.$router.push({name: 'add-project', params: {id: this.$route.params.idUser}});
-    },
     goToViewProyect(idProyect){
-      this.$router.push({name: 'project-view', params: {id: idProyect}});
-
+      this.$router.push({name: 'project-view', params: {idUser: this.userId, idProject: idProyect}});
+    },
+    closeEditDialog($event) {
+      if ($event) this.loadData();
+      this.dialogEditProfile = !this.dialogEditProfile;
+    },
+    closeDeleteProject($event) {
+      if ($event) this.loadData();
+      this.dialogDeleteProject = !this.dialogDeleteProject;
+    },
+    closeAddProject($event) {
+      if ($event) this.loadData();
+      this.dialogAddProject = !this.dialogAddProject;
+    },
+    openDeleteDialog(projectName, projectId) {
+      this.selectedDelete.id = projectId;
+      this.selectedDelete.name = projectName;
+      this.dialogDeleteProject = !this.dialogDeleteProject;
+    },
+    loadData() {
+      postulantProfileService.getPostulantProfile(this.userId).then(response => {
+        this.postulant = response.data;
+      });
+      postulantProfileService.getProjectsByPostulant(this.userId).then(response => {
+        this.projects = response.data;
+      });
     }
-
   },
   mounted(){
-    postulantProfileService.getPostulantProfile(parseInt(this.$route.params.idUser)).then(response => {
-      this.postulant = response.data;
-      console.log(this.postulant);
-    });
-    postulantProfileService.getProjectsByPostulant(parseInt(this.$route.params.idUser)).then(response => {
-      this.projects = response.data;
-      console.log(this.projects);
-    });
+    this.loadData();
   },
 };
 </script>

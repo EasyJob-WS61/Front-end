@@ -7,6 +7,9 @@ class PostulantProfileService{
     getProjectsByPostulant(id){
         return http.get(`/projects/?postulant_id=${id}`);
     }
+    deleteProjectByPostulant(id) {
+        return http.delete(`/projects/${id}`);
+    }
     update(id, data) {
         return http.patch(`/postulants/${id}`, data);
     }

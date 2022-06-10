@@ -15,6 +15,7 @@
       ></applicant-navigation>
       <postulant-navegation
           v-else
+          v-bind:user-name="user.name"
           v-bind:theme-main="theme"
           v-on:changeTheme="changeTheme"
           v-on:sign-out="SignOut"
@@ -23,7 +24,6 @@
         <router-view></router-view>
       </v-main>
     </div>
-
   </v-app>
 </template>
 
@@ -39,6 +39,7 @@ export default {
     typeUser: null,
     isLoggedIn: false,
     id: null,
+    user: { name: "Heber Cordova"},
   }),
   methods: {
     changeTheme() {
@@ -53,7 +54,7 @@ export default {
       this.typeUser = "postulant";
       this.isLoggedIn = true;
       this.id = 2;
-      this.$router.push({ name: "anuncios-postulantes", params: { id: this.id }});
+      this.$router.push({ name: "postulant-home", params: { id: this.id }});
     },
     LoggedApplicant() {
       this.typeUser = "applicant";

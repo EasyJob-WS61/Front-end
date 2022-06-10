@@ -1,86 +1,86 @@
 <template>
-  <v-container class="allcontainer">
-    <v-row justify="center" fluid class="container">
-      <v-col cols="12">
-        <v-row>
-          <v-col cols="12">
-            <input class="name-input-edit" type="text" v-model="newName" />
-            <input class="name-input-edit" type="text" v-model="newLastName" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-col>
-              <h4>Información</h4>
-              <textarea
-                v-model="newDescription"
-                class="information-input-edit"
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-              ></textarea>
-            </v-col>
-          </v-col>
-          <v-col class="image-box" cols="4">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnysQxrChDCkqod6dLjrlbo5AxHkhjzbElJw&usqp=CAU"
+  <v-card max-width="600px" width="90vw" height="100vh" max-height="900px" class="overflow-y-auto">
+    <div>
+      <v-toolbar color="warning">
+        <v-card-title class="text-white">Editar Perfil</v-card-title>
+      </v-toolbar>
+    </div>
+    <v-card-content>
+      <div class="fluid">
+        <div class="d-flex justify-center">
+          <v-img
+              :src="newPhoto"
               alt=""
-            />
-            <v-btn color="primary" elevation="3" x-large text
-              >Cambiar Foto</v-btn
-            >
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="4" class="margin-top align-center">
-            <h3>Contacto:</h3>
-          </v-col>
-          <v-col class="margin-top">
-            <textarea
-              v-model="newContacto"
-              class="redes-input"
-              name=""
-              id=""
-              cols="30"
-              rows="5"
-            ></textarea>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <h4>Cambiar contraseña</h4>
-            <v-row>
-              <v-col class="password-edit-box">
-                <label for="">Contraseña actual</label>
-                <input class="password-edit" type="text" />
-              </v-col>
-              <v-col class="password-edit-box">
-                <label for="">Contraseña nueva</label>
-                <input class="password-edit" type="text" />
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="justify-end">
-            <v-btn color="primary" elevation="3" x-large text @click="updatePostulantProfile()">
-              Guardar Cambios
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+          />
+        </div>
+        <v-text-field
+            hide-details
+            class="w-100 mt-4 mb-2"
+            color="orange orange-darken-4"
+            label="Photo"
+            placeholder="Enter the new Photo"
+            v-model="newPhoto">
+        </v-text-field>
+        <v-text-field
+            hide-details
+            class="w-100 mt-4 mb-2"
+            color="orange orange-darken-4"
+            label="Name"
+            placeholder="Enter the new Name"
+            v-model="newName">
+        </v-text-field>
+        <v-text-field
+            hide-details
+            class="w-100 mb-2"
+            color="orange orange-darken-4"
+            label="Last Name"
+            placeholder="Enter the new LasName"
+            v-model="newLastName">
+        </v-text-field>
+        <v-text-field
+            hide-details
+            class="w-100 mb-2"
+            background-color="amber lighten-4"
+            color="orange orange-darken-4"
+            label="GitHub"
+            placeholder="Enter the new GitHub user"
+            v-model="newGitHub"
+        ></v-text-field>
+        <v-textarea
+            hide-details
+            class="w-100 mb-2"
+            background-color="amber lighten-4"
+            color="orange orange-darken-4"
+            label="Description"
+            placeholder="Enter the new description"
+            v-model="newDescription"
+            rows="4"
+        ></v-textarea>
+        <v-divider></v-divider>
+        <v-card-actions class="justify-end">
+          <v-btn color="error" text @click="closeEditProfile(false)">
+            Cerrar
+          </v-btn>
+          <v-btn color="warning" text @click="updatePostulantProfile()">
+            Editar
+          </v-btn>
+        </v-card-actions>
+        <div class="v-field">
+        </div>
+      </div>
+    </v-card-content>
+  </v-card>
 </template>
 <script>
 import PostulantProfileService from "../services/postulant.profile.service";
 export default {
   name: "postulant-edit-profile",
+  props: { userId: Number},
   data() {
     return {
       newName: "",
+      newGitHub: "",
+      newPhoto: "",
       newLastName: "",
       newDescription: "",
       newContacto: "",
@@ -89,91 +89,45 @@ export default {
     };
   },
   async created() {
-    let response = await PostulantProfileService.getPostulantProfile(
-      parseInt(this.$route.params.id)
-    );
+    let response = await PostulantProfileService.getPostulantProfile(this.userId);
     this.newName = response.data.name;
     this.newLastName = response.data.lastname;
     this.newDescription = response.data.description;
     this.newContacto = response.data.email;
-    this.newPassword = response.data.password;
-    this.newPassword2 = response.data.password;
+    this.newPhoto = response.data.photo;
+    this.newGitHub = response.data.github_user;
   },
   methods: {
+    closeEditProfile(change) {
+      this.$emit("close-edit-profile", change);
+    },
     async updatePostulantProfile() {
-      if (
-        this.newName != "" &&
-        this.newLastName != "" &&
-        this.newDescription != "" &&
-        this.newContacto != "" &&
-        this.newPassword != "" &&
-        this.newPassword2 != ""
-      ) {
-        if (this.newPassword == this.newPassword2) {
-          let response = await PostulantProfileService.update(
-            parseInt(this.$route.params.id),
+      if (this.newPassword === this.newPassword2) {
+        let response = await PostulantProfileService.update(
+            this.userId,
             {
               name: this.newName,
               lastname: this.newLastName,
               description: this.newDescription,
               email: this.newContacto,
-              password: this.newPassword,
+              github_user: this.newGitHub,
+              photo: this.newPhoto
             }
-          );
-          if (response.status == 200) {
-            this.$router.push(`/postulants/${this.$route.params.id}/profile`);
-          }
-        } else {
-          alert("Las contraseñas no coinciden");
+        );
+        if (response.status === 200) {
+          this.closeEditProfile(true);
         }
-      } else{
-        alert("Todos los campos son obligatorios");
+      } else {
+        alert("Las contraseñas no coinciden");
       }
     },
   },
 };
 </script>
 
-<style scoped>
-.allcontainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  min-height: 100vh;
-  height: auto;
-}
-.image-box {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.redes-input {
-  border: 1px solid white;
-  border-radius: 5px;
-  color: white;
-}
-
-.margin-top {
-  margin-top: 2pc;
-}
-
-.align-center {
-  display: flex;
-  align-items: center;
-}
-
-.justify-center {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.justify-end {
-  display: flex;
-  justify-content: flex-end;
+<style>
+::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {

@@ -1,11 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import SignInSolicitante from '../signs-in/pages/sign-in-solicitante.vue'
-import AnunciosPostulantes from './../anuncios-postulantes/pages/AnunciosPostulante.vue'
-import DetallesAnuncio from '../anuncios-postulantes/pages/DetallesAnuncio.vue'
+import DetallesAnuncio from '../anuncios-postulantes/pages/announcement-detail.vue'
 import PostulantProfile from '../postulants/pages/postulant-profile.vue'
 import PostulantEditProfile from '../postulants/pages/postulant-edit-profile.vue'
-import ProjectView from '../projects/pages/project-view.vue'
-import AddProject from '../projects/pages/add-project.vue'
+import ProjectView from '../postulants/pages/postulant-projects.vue'
+import AddProject from '../postulants/pages/postulant-add-project.vue'
+import PostulantHome from "@/views/app-home";
+import PostulantApplications from "@/postulants/pages/postulant-applications";
 
 const routes = [
   {
@@ -70,7 +71,7 @@ const routes = [
   {
     path: '/applicants/:idUser/announcements/',
     name: 'applicant-announcement',
-    component: () => import('../applicants/pages/applicant-announcement'),
+    component: () => import('../views/app-home'),
     props: true
   },
   {
@@ -104,9 +105,9 @@ const routes = [
     props: true
   },
   {
-    path: '/postulants/:id/announcements',
-    name: 'anuncios-postulantes',
-    component: AnunciosPostulantes,
+    path: '/postulants/:id/home',
+    name: 'postulant-home',
+    component: PostulantHome,
     props: true
   },
   {
@@ -123,9 +124,15 @@ const routes = [
     props: true
   },
   {
-    path: '/projects/:id/view',
+    path: '/postulant/:idUser/projects/:idProject',
     name: 'project-view',
     component: ProjectView,
+    props: true
+  },
+  {
+    path: '/postulant/:idUser/applications',
+    name: 'postulant-applications',
+    component: PostulantApplications,
     props: true
   },
   {

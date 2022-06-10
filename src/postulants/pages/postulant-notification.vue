@@ -1,37 +1,18 @@
 <template>
-
-  <row class="ma-0 pa-0 d-flex " style="height: 680px " >
-
-    <v-col cols="18" class="ma-0 pa-4  " style="margin-top: 100px">
-      <v-card class="py-2 mb-4 ">
-        <p class="font-weight-bold text-h5 text-uppercase text-center wight-100 primary">Notificaciones</p>
-      </v-card>
-      <v-raw v-for="notification in notifications" :key="notification" cols="8" class="ma-0 pa-4  max-wight-100 " >
-          <v-card v-if="notification.postulant_id==idUser"  class="pa-4 mb-3" >
-
-            <p class="font-weight-medium blackletter" style="font-size: 12px; text-align: right">{{notification.date}}</p>
-
-            <v-row>
-              <v-col v-if="notification.state==='accepted'" cols="1">
-                <v-img class="mx-auto" width="50px" v-bind:src="require('../../core/img/check.png')" alt="premium"></v-img>
-              </v-col>
-              <v-col v-if="notification.state==='denied'" cols="1">
-                <v-img class="mx-auto" width="60px" v-bind:src="require('../../core/img/Frame 1.png')" alt="premium"></v-img>
-              </v-col>
-              <v-col>
-                <v-card-title class="primary">{{notification.title}}</v-card-title>
-                <p class="font-weight-medium blackletter" style="margin-left: 20px">{{notification.description}}</p>
-              </v-col>
-            </v-row>
-
-            <v-card-actions class="justify-end " v-if="notification.state==='denied'">
-               <v-btn class="rounded-lg btn-info" @click="goToFeedback(notification.id)" >Más información</v-btn>
-             </v-card-actions>
-
-          </v-card>
-      </v-raw>
-    </v-col>
-  </row>
+  <v-menu activator="#notification-activator">
+    <v-list max-width="350px" class="pa-6">
+      <div v-for="notification in notifications" :key="notification" class="d-flex flex-column">
+        <div class="py-3">
+          <div v-if="notification.state==='accepted'" class="success">{{notification.title}}</div>
+          <div v-else-if="notification.state==='denied'" class="error2">{{notification.title}}</div>
+          <div v-else-if="notification.state==='pending'" class="info">{{notification.title}}</div>
+          <div>{{notification.description}}</div>
+        </div>
+        <v-divider></v-divider>
+      </div>
+      <v-btn block="true" color="info" flat="true">Ver más</v-btn>
+    </v-list>
+  </v-menu>
 </template>
 
 <script>
@@ -82,5 +63,14 @@ export default {
 .btn-info {
   background-color: #02EDB3;
   color: white;
+}
+.success {
+  color: #02EDB3;
+}
+.error2 {
+  color: #FF5A5A;
+}
+.info {
+  color: #01C4FF
 }
 </style>

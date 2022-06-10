@@ -9,7 +9,7 @@ let lightTheme, darkTheme;
 lightTheme = {
     dark: false,
     colors: {
-        primary: '#01C4FF',
+        primary: '#236B81',
         secondary: '#02EDB3',
         error: '#FF5A5A',
         info: '#01C4FF',
@@ -24,7 +24,7 @@ lightTheme = {
 darkTheme = {
     dark: true,
     colors: {
-        primary: '#01C4FF',
+        primary: '#236B81',
         secondary: '#02EDB3',
         error: '#FF5A5A',
         info: '#01C4FF',
