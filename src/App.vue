@@ -1,46 +1,40 @@
 <template>
   <v-app :theme="theme">
-    <div v-if="!isLoggedIn">
-      <LoginAccount
-          v-on:logged-postulant="LoggedPostulant"
-          v-on:logged-applicant="LoggedApplicant"
-      ></LoginAccount>
-    </div>
-    <div v-else>
-      <applicant-navigation
-          v-if="typeUser === 'applicant'"
-          v-bind:theme-main="theme"
-          v-on:changeTheme="changeTheme"
-          v-on:sign-out="SignOut"
-      ></applicant-navigation>
-      <postulant-navegation
-          v-else
-          v-bind:user-name="user.name"
-          v-bind:theme-main="theme"
-          v-on:changeTheme="changeTheme"
-          v-on:sign-out="SignOut"
-      ></postulant-navegation>
-      <v-main>
-        <router-view></router-view>
-      </v-main>
-    </div>
+    <app-navigation
+        v-if="loggedIn"
+        v-bind:type-user="typeUser"
+        v-bind:theme-main="theme"
+        v-on:changeTheme="changeTheme"
+        v-on:sign-out="logOut"
+    ></app-navigation>
+    <v-main>
+      <router-view v-on:log-in-success-full="logInSuccessFull"></router-view>
+    </v-main>
+    <app-footer></app-footer>
   </v-app>
 </template>
 
 <script>
-import ApplicantNavigation from "@/applicants/pages/applicant-navigation";
-import PostulantNavegation from "@/postulants/pages/postulant-navegation";
-import LoginAccount from "@/authenticate/pages/login-account";
+import AppNavigation from "@/views/app-navegation";
+import AppFooter from "@/views/app-footer";
+import router from "@/router";
 export default {
   name: 'App',
-  components: {ApplicantNavigation, PostulantNavegation, LoginAccount},
+  components: {AppNavigation, AppFooter},
   data: () => ({
     theme: 'lightTheme',
     typeUser: null,
-    isLoggedIn: false,
     id: null,
-    user: { name: "Heber Cordova"},
+    name: null,
   }),
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
   methods: {
     changeTheme() {
       if (this.theme === 'lightTheme') {
@@ -50,30 +44,35 @@ export default {
         this.theme = 'lightTheme';
       }
     },
-    LoggedPostulant() {
-      this.typeUser = "postulant";
-      this.isLoggedIn = true;
-      this.id = 2;
-      this.$router.push({ name: "postulant-home", params: { id: this.id }});
+    logInSuccessFull() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      this.typeUser = user.userType.toLowerCase();
+      this.name = user.name + " " + user.lastname;
+      this.id = user.id;
     },
-    LoggedApplicant() {
-      this.typeUser = "applicant";
-      this.isLoggedIn = true;
-      this.id = 1;
-      this.$router.push({ name: "applicant-announcement", params: { idUser: this.id }});
-    },
-    SignOut() {
+    logOut() {
+      this.$store.dispatch('auth/logout');
       this.typeUser = null;
-      this.isLoggedIn = false;
       this.id = null;
-      this.$router.push({ name: "login-account"});
-      console.log("here");
-    }
+    },
   },
   mounted() {
     let theme = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (theme) this.theme = 'darkTheme';
     else this.theme = 'lightTheme';
+
+    if (this.currentUser) {
+      const user = this.currentUser;
+      this.typeUser = user.userType.toLowerCase();
+      this.name = user.name + " " + user.lastname;
+      this.id = user.id;
+      if (this.typeUser === "postulant")
+        router.push({name: "postulant-home", params: {id: this.id}})
+      else router.push({name: "applicant-home", params: {id: this.id}})
+
+    } else {
+      router.push({name: "login-account"});
+    }
   },
 }
 </script>

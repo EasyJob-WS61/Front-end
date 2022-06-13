@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="mt-2">
+    <v-row class="mt-2 h-screen">
       <v-col cols="12" class="v-col-md-9">
         <h1>Mis Postulaciones</h1>
         <v-card class="mt-8 v-col-12">
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import PostulantPremium from "@/postulants/pages/postulant-premium";
+import PostulantPremium from "@/subscription/pages/susbcription-ad";
 export default {
   name: "postulant-applications",
   components: { PostulantPremium },

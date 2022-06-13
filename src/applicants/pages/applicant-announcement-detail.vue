@@ -108,7 +108,7 @@ export default {
     stateEN: null,
     stateES: null,
     postulants: [],
-    announcement: [],
+    announcement: {},
     applicant: [],
     aux: {},
     applications: [],
@@ -116,12 +116,12 @@ export default {
   }),
   async created() {
     try {
-      const response1 = await ApplicantNotificationService.getByAnnouncementId(this.$route.params.id);
-      this.applications = response1.data
+      //const response1 = await ApplicantNotificationService.getByAnnouncementId(this.$route.params.id);
+      //this.applications = response1.data
       const response2= await PostulantsService.getAll();
       this.postulants = response2.data
-      this.getAnnouncement();
-      this.getApplicant();
+      await this.getAnnouncement();
+      await this.getApplicant();
     }
     catch (e)
     {
@@ -134,8 +134,10 @@ export default {
       await ApplicantsAnnouncementService.getById(this.$route.params.id)
           .then(response => {
             this.announcement = response.data;
+            console.log(this.announcement)
           })
           .catch(error => {
+            console.log(error)
             this.errors.push(error);
           })
     },

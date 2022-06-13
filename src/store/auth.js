@@ -1,0 +1,64 @@
+import AuthenticateService from "@/authenticate/services/authenticate.service";
+import router from "@/router";
+const user = JSON.parse(localStorage.getItem('user'));
+console.log(user);
+const initialState = user
+    ? { status: { loggedIn: true }, user }
+    : { status: { loggedIn: false }, user: null };
+export const auth = {
+    namespaced: true,
+    state: initialState,
+    actions: {
+        login({ commit }, user) {
+            return AuthenticateService.signIn(user).then(
+                response => {
+                    console.log(response.data.user);
+                    commit('loginSuccess', response.data.user);
+                    return Promise.resolve(response);
+                },
+                error => {
+                    commit('loginFailure');
+                    return Promise.reject(error);
+                }
+            );
+        },
+        logout({ commit }) {
+            commit('logout');
+        },
+        register({ commit }, user) {
+            return AuthenticateService.signUp(user).then(
+                response => {
+                    commit('registerSuccess');
+                    return Promise.resolve(response.data);
+                },
+                error => {
+                    commit('registerFailure');
+                    return Promise.reject(error);
+                }
+            );
+        }
+    },
+    mutations: {
+        loginSuccess(state, user) {
+            localStorage.setItem("user", JSON.stringify(user));
+            state.status.loggedIn = true;
+            state.user = user;
+        },
+        loginFailure(state) {
+            state.status.loggedIn = false;
+            state.user = null;
+        },
+        logout(state) {
+            localStorage.removeItem("user");
+            state.status.loggedIn = false;
+            state.user = null;
+            return router.push({ name: "login-account"});
+        },
+        registerSuccess(state) {
+            state.status.loggedIn = false;
+        },
+        registerFailure(state) {
+            state.status.loggedIn = false;
+        }
+    }
+};

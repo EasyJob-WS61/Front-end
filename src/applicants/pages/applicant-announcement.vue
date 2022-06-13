@@ -7,7 +7,7 @@
       <v-card v-for="(announcement, key) in announcements" v-bind:key="key" class="pa-4 mb-3">
         <v-row>
           <v-col cols="2" class="d-flex justify-center align-center">
-            <v-img width="100px" :src="applicant.photo"></v-img>
+            <v-img width="100px" :src="enterprisePhoto"></v-img>
           </v-col>
           <v-col cols="10" class="d-flex flex-column justify-center">
             <div class="d-flex justify-end">
@@ -94,6 +94,7 @@ import AnnouncementService from "@/applicants/services/applicants.announcement.s
 import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add";
 import ApplicantService from "@/applicants/services/applicants.service"
 import ApplicantAnnouncementEdit from "@/applicants/pages/applicant-announcement-edit";
+import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
 export default {
   name: "applicant-announcement",
   components: {ApplicantAnnouncementEdit, ApplicantAnnouncementAdd},
@@ -101,6 +102,7 @@ export default {
     announcements: [],
     selectAnnouncementId: null,
     applicant: {},
+    enterprisePhoto: "",
     announcementSelected: {},
     dialogAnnouncementAdd: false,
     dialogAnnouncementEdit: false,
@@ -118,6 +120,16 @@ export default {
           .catch(e => {
             this.errors.push(e.message);
           });
+    },
+    async getEnterprisePhoto(idUser) {
+      await EnterpriseService.getByApplicantId(idUser)
+          .then(response => {
+            this.enterprisePhoto = response.data.at(0).photo;
+            console.log(this.enterprisePhoto)
+          })
+          .catch(error => {
+            console.log(error);
+          })
     },
     goToAnnouncementAdd() {
       this.dialogAnnouncementAdd = !this.dialogAnnouncementAdd;
@@ -168,8 +180,10 @@ export default {
     }
   },
   mounted() {
+    this.idUser = this.$route.params.idUser;
     this.getAnnouncements();
     this.getApplicant(this.idUser);
+    this.getEnterprisePhoto(this.idUser);
   },
 }
 </script>

@@ -8,6 +8,10 @@ class NotificationService{
         return http.get(`/notifications/${id}`);
     }
 
+    getByCustomerIdAndTypeNotification(id) {
+        return http.get(`/notifications?type=postulant&customerId=${id}`);
+    }
+
     create(data) {
         return http.post("/notifications", data);
     }

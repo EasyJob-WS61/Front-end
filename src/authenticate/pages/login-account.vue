@@ -1,93 +1,91 @@
 <template>
-<v-row >
-  <v-col  style="margin-left: 100px;margin-top: 30px" >
-    <div class="d-flex flex-column justify-center align-center pa-4">
-      <v-img width="250px" :src="require('../../core/img/LOGO.png')"></v-img>
-      <p  class=" font-weight-bold " style="font-size: 50px; color: #01C4FF">EasyJob</p>
-    </div>
-    <v-row justify="center">
-      <v-col cols="8">
-        <v-text-field v-model="this.email" label="E-mail" outlined clearable></v-text-field>
-        <v-text-field  v-model="this.password" label="Password" outlined clearable></v-text-field>
-      </v-col>
-    </v-row>
-
-    <v-row justify="center" align-content="center">
-        <v-btn class="primary" @click="LoginPostulant">Ingresar (Postulants)</v-btn>
-    </v-row>
-    <v-row justify="center" align-content="center" style="margin-top: 20px">
-      <v-btn class="primary" @click="LoginApplicants">Ingresar (Applicants)</v-btn>
-    </v-row>
-    <v-row justify="center" align-content="center" style="margin-top: 20px">
-      <v-btn class="primary" style="background-color: #02EDB3">Registrarse</v-btn>
-    </v-row>
-  </v-col>
-
-  <v-col style="margin-top: 130px">
-
-    <v-img class="mx-auto" width="590px" v-bind:src="require('../../core/img/IMG.png')" alt="premium"></v-img>
+<v-row class="ma-0">
+  <v-col style="height: calc(100vh - 48px)" cols="12" class="d-flex justify-center align-center">
+    <v-card width="600px" class="px-12 pt-4 pb-8">
+      <div class="d-flex justify-center mt-8">
+        <a class="text-decoration-none d-flex align-center">
+          <div><v-img class="pr-4" width="72px" :src="require('../../core/img/LOGO.png')"></v-img></div>
+          <v-toolbar-title class="text-h4 font-weight-bold text-white">EasyJob</v-toolbar-title>
+        </a>
+      </div>
+      <v-form ref="logInForm" v-model="validLogin" class="mb-4 mt-8">
+        <p v-if="errorBadRequest" class="error-color pa-2">The email and/or password do not match any account.</p>
+        <p v-if="errorServer" class="error-color pa-2">There was a problem with the service, please try again later.</p>
+        <v-text-field :rules="emailRules" hide-details label="Email" v-model="email" placeholder="Enter your email" outlined clearable></v-text-field>
+        <v-text-field :rules="passwordRules" :prepend-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:prepend-inner="show1 = !show1" hide-details label="Password" v-model="password" placeholder="Enter your password" outlined clearable></v-text-field>
+      </v-form>
+      <p class="mb-4 text-center">Forgot Your Password? <a class="link-color" href="">Click here.</a></p>
+      <v-btn @click="handleLogin" class="w-100 mb-4 text-white" color="info">Log In</v-btn>
+      <v-divider></v-divider>
+      <v-btn @click="goToSignUp" class="w-100 mt-4 text-white" color="info">Sign Up</v-btn>
+    </v-card>
   </v-col>
 </v-row>
 </template>
 
 <script>
-import postulantsService from "@/postulants/services/postulants.service";
-import applicantsService from "@/applicants/services/applicants.service";
+//import AuthenticateService from "@/authenticate/services/authenticate.service";
+import router from "@/router";
 export default {
   name: "login-account",
   data: () => ({
+    validLogin: true,
+    emailRules: [v => !!v || 'E-mail is required', v => /.+@.+\..+/.test(v) || 'E-mail must be valid',],
+    passwordRules: [v => !!v || 'Password is required', v => (v && v.length <= 25) || 'Name must be less than 25 characters',],
     postulant:[],
     applicant:[],
     email:"",
     password: "",
-    idUser:0,
+    errorServer: false,
+    errorBadRequest: false,
+    idUser: null,
+    show1: false,
   }),
   methods: {
-     Login(email,password){
-        postulantsService.getByEmail(email)
-           .then(response => {
-             this.postulant = response.data;
-             console.log(response.data)
-           })
-           .catch(e => {
-             this.errors.push(e.message);
-           });
-
-        applicantsService.getByEmail(email).
-            then(response=>{
-              this.applicant=response.data;
-          console.log(response.data)
-        }).catch(e => {
-              this.errors.push(e.message);
-            });
-
-
-       if(this.postulant[0]!=null){
-         if(this.postulant[0].password==password){
-           this.$router.push('/postulants/'+this.postulant[0].id+'/notifications');
-         }
-       }
-       if(this.applicant[0]!=null){
-         if(this.applicant[0].password==password){
-           this.$router.push('/applicants/'+this.applicant[0].id+'/announcements');
-         }
-       }
+    reset() {
+      this.$refs.logInForm.reset();
+      this.idUser = null;
+      this.errorBadRequest = false;
+      this.errorBadRequest = false;
     },
-    LoginPostulant() {
-      this.$emit("logged-postulant");
+    handleLogin() {
+      this.errorBadRequest = false;
+      this.$refs.logInForm.validate();
+      if (this.validLogin) {
+        const logInResource = {
+          email: this.email,
+          password: this.password,
+        };
+        this.$store.dispatch("auth/login", logInResource).then(
+            (response) => {
+              const user = response.data.user;
+              this.idUser = user.id;
+              if (user.userType.toLowerCase() === "postulant") router.push({name: "postulant-home", params: {id: this.idUser}});
+              else if (user.userType.toLowerCase() === "applicant") router.push({name: "applicant-home", params: {id: this.idUser}});
+              this.$emit("LogInSuccessFull");
+              this.reset();
+            },
+            (error) => {
+              if (error.code === "ERR_NETWORK") this.errorServer = true;
+              else if (error.code === "ERR_BAD_REQUEST") this.errorBadRequest = true;
+            }
+        );
+      }
     },
-    LoginApplicants() {
-      this.$emit("logged-applicant");
-    },
+    goToSignUp() {
+       router.push({name: "signup-account"});
+    }
   }
 }
 </script>
-
-<style scoped>
-.primary{
-  background-color: #01C4FF;
-  color: white;
-  font-family: Roboto;
-  font-size: 25px;
+<style>
+.link-color {
+  color: #01C4FF;
+}
+.link-color:hover {
+  color: #236B81;
+}
+.error-color {
+  color: #FF5A5A;
 }
 </style>

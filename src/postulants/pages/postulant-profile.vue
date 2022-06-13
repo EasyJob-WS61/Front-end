@@ -60,7 +60,7 @@
             ></postulant-delete-project>
           </v-dialog>
           <v-dialog v-model="dialogAddProject">
-            <postulant-add-project v-on:close-add-project="closeAddProject($event)"></postulant-add-project>
+            <postulant-add-project v-bind:username="gitHubUser" v-on:close-add-project="closeAddProject($event)"></postulant-add-project>
           </v-dialog>
         </v-row>
       </v-col>
@@ -69,15 +69,16 @@
 </template>
 <script>
 import postulantProfileService from '../services/postulant.profile.service.js';
-import postulantEditProfile from "@/postulants/pages/postulant-edit-profile";
-import postulantDeleteProject from "@/postulants/pages/postulant-delete-project";
-import postulantAddProject from "@/postulants/pages/postulant-add-project";
+import postulantEditProfile from "@/postulants/pages/postulant-edit-profile.vue";
+import postulantDeleteProject from "@/postulants/pages/postulant-delete-project.vue";
+import postulantAddProject from "@/postulants/pages/postulant-add-project.vue";
 export default {
   name: "postulant-profile",
   components: {postulantEditProfile, postulantDeleteProject, postulantAddProject},
   data(){
     return{
-      userId: 1,
+      userId: null,
+      gitHubUser: null,
       dialogEditProfile: false,
       dialogDeleteProject: false,
       dialogAddProject: false,
@@ -108,9 +109,10 @@ export default {
       this.dialogDeleteProject = !this.dialogDeleteProject;
     },
     loadData() {
-      postulantProfileService.getPostulantProfile(this.userId).then(response => {
-        this.postulant = response.data;
-      });
+      const user = JSON.parse(localStorage.getItem("user"));
+      this.userId = user.id;
+      this.postulant = user;
+      this.gitHubUser = user.gitHubUser;
       postulantProfileService.getProjectsByPostulant(this.userId).then(response => {
         this.projects = response.data;
       });

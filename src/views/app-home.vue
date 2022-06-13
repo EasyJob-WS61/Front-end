@@ -2,21 +2,21 @@
   <v-container>
     <v-row class="mt-2">
       <v-col cols="12" class="v-col-md-9">
-        <postulant-announcement></postulant-announcement>
+        <app-announcement></app-announcement>
       </v-col>
       <v-col cols="12" class="v-col-md-3">
-        <postulant-premium class="position-fixed"></postulant-premium>
+        <subscription-ad class="position-fixed"></subscription-ad>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import PostulantPremium from "@/postulants/pages/postulant-premium";
-import PostulantAnnouncement from "@/anuncios-postulantes/pages/announcement-list"
+import SubscriptionAd from "@/subscription/pages/susbcription-ad";
+import AppAnnouncement from "@/anuncios-postulantes/pages/announcement-list"
 export default {
   name: "postulant-home",
-  components: {PostulantPremium, PostulantAnnouncement}
+  components: {SubscriptionAd, AppAnnouncement}
 }
 </script>
 

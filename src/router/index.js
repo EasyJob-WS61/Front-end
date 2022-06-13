@@ -1,11 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import SignInSolicitante from '../signs-in/pages/sign-in-solicitante.vue'
-import DetallesAnuncio from '../anuncios-postulantes/pages/announcement-detail.vue'
+import AnnouncementDetail from '../anuncios-postulantes/pages/announcement-detail.vue'
 import PostulantProfile from '../postulants/pages/postulant-profile.vue'
 import PostulantEditProfile from '../postulants/pages/postulant-edit-profile.vue'
 import ProjectView from '../postulants/pages/postulant-projects.vue'
 import AddProject from '../postulants/pages/postulant-add-project.vue'
-import PostulantHome from "@/views/app-home";
+import AppHome from "@/views/app-home";
 import PostulantApplications from "@/postulants/pages/postulant-applications";
 
 const routes = [
@@ -14,9 +13,27 @@ const routes = [
     name: 'root',
   },
   {
+    path: "/sign-up",
+    name: "signup-account",
+    component: () => import('../authenticate/pages/signup-account.vue'),
+    props: true
+  },
+  {
     path: '/sign-in',
     name: 'login-account',
-    component: () => import('../authenticate/pages/login-account'),
+    component: () => import('../authenticate/pages/login-account.vue'),
+    props: true
+  },
+  {
+    path: '/postulants/:id/home',
+    name: 'postulant-home',
+    component: AppHome,
+    props: true
+  },
+  {
+    path: '/applicants/:id/home',
+    name: 'applicant-home',
+    component: AppHome,
     props: true
   },
   {
@@ -34,7 +51,7 @@ const routes = [
   {
     path: '/postulants/:idUser/premium/',
     name: "postulant-premium",
-    component: () => import('../postulants/pages/postulant-premium'),
+    component: () => import('../subscription/pages/susbcription-ad'),
     props: true
   },
 
@@ -59,7 +76,7 @@ const routes = [
   {
     path: '/postulants/:idUser/notifications/',
     name: "postulant-notification",
-    component: () => import('../postulants/pages/postulant-notification'),
+    component: () => import('../notifications/pages/app-notifications'),
     props: true
   },
   {
@@ -71,7 +88,7 @@ const routes = [
   {
     path: '/applicants/:idUser/announcements/',
     name: 'applicant-announcement',
-    component: () => import('../views/app-home'),
+    component: () => import('../applicants/pages/applicant-announcement'),
     props: true
   },
   {
@@ -99,21 +116,9 @@ const routes = [
     props: true
   },
   {
-    path: '/signup/applicants',
-    name: 'signup',
-    component: SignInSolicitante,
-    props: true
-  },
-  {
-    path: '/postulants/:id/home',
-    name: 'postulant-home',
-    component: PostulantHome,
-    props: true
-  },
-  {
-    path: '/postulants/:id/announcements/:a_id',
+    path: '/postulants/:id/announcements/:announcementId',
     name: 'detalles-anuncio',
-    component: DetallesAnuncio,
+    component: AnnouncementDetail,
     props: true
   },
   {
@@ -147,5 +152,18 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/sign-in', '/sign-up'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+  // trying to access a restricted page + not logged in
+  // redirect to login page
+  if (authRequired && !loggedIn) {
+    next('/sign-in');
+  } else {
+    next();
+  }
+});
 
 export default router

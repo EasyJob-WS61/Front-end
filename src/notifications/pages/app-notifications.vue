@@ -16,32 +16,31 @@
 </template>
 
 <script>
-//import NotificationService from  "@/postulants/services/postulants.notification.service";
-import router from "@/router";
-import ApplicantNotificationService from "@/applicants/services/applicants.notification.service";
+import NotificationService from "@/notifications/services/notification.service";
 export default {
   name: "postulant-notification",
   components: {},
   data: () => ({
     notifications: [],
     items: [],
+    errors: [],
     idUser:0,
   }),
   async created() {
-    try {
-      const response1 = await ApplicantNotificationService.getAll();
-      this.notifications = response1.data;
-      this.idUser=this.$route.params.idUser;
-    }
-    catch (e)
-    {
-      console.error(e);
-      console.log(this.notifications)
-    }
+    this.idUser = this.$route.params.idUser;
+    const notificationResponse = await this.getAnnouncement(this.idUser);
+    this.notifications = await notificationResponse.data;
   },
   methods: {
-    goToFeedback(id) {
-      router.push({ name: 'postulant-feedback', params: {idUser: this.$route.params.idUser, idNotification: id} })    },
+    async getAnnouncement(idUser) {
+      return await NotificationService.getByCustomerIdAndTypeNotification(idUser)
+        .then(response => {
+          return response;
+        })
+        .catch(error => {
+          this.errors.push(error);
+        })
+    }
   }
 }
 </script>

@@ -63,7 +63,6 @@ export default {
   name: "add-project",
   data() {
     return {
-      username: "hbcordova",
       title: "",
       description: "",
       gitHubLink: "",
@@ -74,6 +73,7 @@ export default {
       errors: []
     };
   },
+  props: {'username': String},
   methods: {
     closeAddProject(change) {
       this.$emit("close-add-project", change);
@@ -102,6 +102,7 @@ export default {
           .then(response => {
             response.data.forEach(repo => {
               this.repositories.push(repo.name);
+              console.log(this.username)
               this.repositoriesUrl.push(repo.html_url);
             });
           })

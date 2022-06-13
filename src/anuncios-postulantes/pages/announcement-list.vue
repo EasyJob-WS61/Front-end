@@ -5,9 +5,7 @@
         v-on:click="changePage(announcement.id)"
         class="mb-4 w-100 px-8 py-8 d-flex">
       <div class="mr-4">
-        <v-img width="70px"
-               src="https://pbs.twimg.com/profile_images/1311763847775125516/mvBRhlDs_400x400.jpg"
-        ></v-img>
+        <v-img cover="true" width="70px" :src="announcement.photoEnterprise"></v-img>
       </div>
       <div>
         <p>{{announcement.place}}</p>
@@ -21,85 +19,47 @@
 
 <script>
 import AnnouncesService from "../services/announcement.service";
+import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
 export default {
   name: "postulant-announcement",
   data: () => ({
     rules: [(value) => !!value || "Required."],
     announcements: [],
+    errors: []
   }),
   methods: {
     changePage(id) {
       this.$router.push(`/postulants/1/announcements/${id}`);
     },
+    async getAnnouncements() {
+      await AnnouncesService.getAll()
+        .then((response) => {
+          response.data.forEach(async (announcement, index) => {
+            await EnterpriseService.getByApplicantId(announcement.applicantId)
+              .then(async resp => {
+                response.data.at(index).photoEnterprise = await resp.data.at(0).photo;
+                this.announcements.push(response.data.at(index));
+              })
+          });
+
+          console.log(this.announcements);
+        })
+          .catch(error => {
+            this.errors.push(error);
+          })
+    }
   },
   async mounted() {
-    let response = await AnnouncesService.getAll();
-    this.announcements = response.data;
+    await this.getAnnouncements();
   },
 };
 </script>
 
 <style scoped>
-.allcontainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  min-height: 100vh;
-  height: auto;
-}
-.container {
-  width: 100%;
-}
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 3pc;
-}
-
-.row-center {
-  display: flex;
-  align-items: center;
-}
-
-.col-center {
-  display: flex;
-  justify-content: center;
-}
-
-.containter-anuncio {
-  border: 1px solid rgb(189, 189, 189);
-  height: 10rem;
-  -webkit-box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
-  -moz-box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
-  box-shadow: 3px 7px 21px -6px rgba(0, 0, 0, 0.61);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  padding: 2px 20px;
-  margin: 0.5rem 0px;
-}
 .containter-anuncio h2 {
   color: #01c4ff;
 }
 .containter-anuncio p {
   color: #ffffff;
-}
-.flex-end {
-  display: flex;
-  justify-content: flex-end;
-}
-.img-post {
-  width: 3.5rem;
-  height: 3.5rem;
-  display: flex;
-  justify-content: center;
-}
-.img-post img {
-  width: 100%;
-  max-width: 100% !important;
 }
 </style>
