@@ -24,9 +24,8 @@
 </template>
 
 <script>
-import PostulantsService from "@/postulants/services/postulants.service";
+import PostulantsService from "@/postulants/services/postulants.service.js";
 import router from "@/router";
-
 export default {
   name: "applicant-busqueda",
   data: () => ({

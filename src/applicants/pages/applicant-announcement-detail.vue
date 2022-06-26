@@ -139,10 +139,10 @@
 </template>
 
 <script>
-import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
-import ApplicantsService from "@/applicants/services/applicants.service";
+import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service.js";
+import ApplicantsService from "@/applicants/services/applicants.service.js";
 import EnterpriseService from "@/announcements/services/enterprise.service.js";
-import ApplicationsService from "@/applicants/services/applications.service";
+import ApplicationsService from "@/applicants/services/applications.service.js";
 export default {
   name: "applicant-announcement-detail",
   components: {},

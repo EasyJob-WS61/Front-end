@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import ApplicantsService from "@/applicants/services/applicants.service";
-import PostulantsService from "@/postulants/services/postulants.service";
-import postulantsChatService from "@/postulants/services/postulants.chat.service";
+import ApplicantsService from "@/applicants/services/applicants.service.js";
+import PostulantsService from "@/postulants/services/postulants.service.js";
+import postulantsChatService from "@/postulants/services/postulants.chat.service.js";
 import router from "@/router";
 
 export default {

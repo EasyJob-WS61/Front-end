@@ -77,7 +77,7 @@
 
 <script>
 import router from "@/router";
-import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
+import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service.js";
 export default {
   name: "applicant-announcement-edit",
   props: {
