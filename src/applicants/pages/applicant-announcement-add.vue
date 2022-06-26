@@ -20,6 +20,13 @@
               label="Ingrese el titulo del anuncio"
               required
           ></v-text-field>
+          <v-text-field
+              v-model="announcement.place"
+              :counter="50"
+              :rules="titleRules"
+              label="Ingrese la ubicacion del empleo"
+              required
+          ></v-text-field>
           <v-textarea
               v-model="announcement.description"
               label="Ingrese la descripcion del anuncio"
@@ -36,13 +43,20 @@
               v-model="announcement.salary"
           ></v-text-field>
           <v-select
-              v-model="select"
-              :items="items"
+              v-model="announcement.ability"
+              :items="abilities"
               :rules="[v => !!v || 'Abilidad es requerida']"
-              label="Seleccione un etiqueta"
+              label="Seleccione una habilidad"
               required
           ></v-select>
-          <v-checkbox v-model="checkbox">
+          <v-select
+              v-model="announcement.period"
+              :items="periods"
+              :rules="[v => !!v || 'Abilidad es requerida']"
+              label="Seleccione la disponibilidad"
+              required
+          ></v-select>
+          <v-checkbox v-model="announcement.visible">
             <template v-slot:label>
               <div>Este anuncio sera visible</div>
             </template>
@@ -63,7 +77,6 @@
 <script>
 import router from "@/router";
 import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
-import UtilitiesService from "@/applicants/services/utilities.service";
 export default {
   name: "applicant-announcement-add",
   components: {},
@@ -78,16 +91,20 @@ export default {
     titleRules: [ v => !!v || 'Title is required', v => (v && v.length <= 50) || 'Title must be less than 50 characters'],
     descriptionRules: [ v => !!v || 'Description is required', v => (v && v.length <= 200) || 'Description must be less than 200 characters'],
     salaryRules: [v => !!v || 'Salary is required', v => (v && v > 0) || 'Salary must be major than 0'],
+    periods: ["Full Time", "Part Time"],
+    period: null,
     announcement: {
       applicantId: null,
       title: '',
       description: '',
       salary: null,
       date: null,
-      visible: null
+      visible: null,
+      place: null,
+      ability: null,
+      period: null,
     },
-    items: [],
-    select: null,
+    abilities: ["Programacion con C++", "Programacion con Python", "Programacion Web", "Programacion Back-end con c# y asp.net"],
     search: null,
   }),
   methods: {
@@ -105,8 +122,6 @@ export default {
         const today = new Date(time);
 
         this.announcement.applicantId = this.idUser;
-        this.announcement.visible = this.checkbox;
-        this.announcement.ability = this.select;
         this.announcement.date = today.toLocaleDateString();
 
         await ApplicantsAnnouncementService.create(this.announcement)
@@ -121,20 +136,6 @@ export default {
         this.$refs.form.validate();
       }
     },
-    async getUtilities() {
-      await UtilitiesService.getAll()
-          .then(response => {
-            let abilities = [];
-            response.data.forEach(ability => {
-              abilities.push(ability.name);
-            })
-            this.items = abilities;
-            console.log(this.items);
-          })
-          .catch(error => {
-            this.errors.push(error);
-          })
-    }
   },
   watch: {
     model (val) {
@@ -145,7 +146,6 @@ export default {
   },
   mounted() {
     this.idUser = this.$route.params.idUser;
-    this.getUtilities();
   }
 }
 </script>

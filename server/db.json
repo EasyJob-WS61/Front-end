@@ -32,7 +32,6 @@
       "ability": "Programacion con Python",
       "id": 1,
       "period": "Full Time",
-      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
       "place": "San Isidro,Lima"
     },
     {
@@ -45,7 +44,6 @@
       "ability": "Programacion con Python",
       "id": 2,
       "period": "Full Time",
-      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
       "place": "San Isidro,Lima"
     },
     {
@@ -58,34 +56,19 @@
       "ability": "Programacion con Python",
       "id": 3,
       "period": "Full Time",
-      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
       "place": "San Isidro,Lima"
     },
     {
       "applicantId": "2",
-      "title": "Desarrollador Backend C#",
-      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
-      "salary": "5000",
-      "date": "5/1/2022",
+      "title": "Se necesita desarrollador Full Stack",
+      "description": "Se necesita personal con conocimientos en desarrollo con vue, primevue y asp.net.",
+      "salary": "4500",
+      "date": "6/25/2022",
       "visible": true,
-      "ability": "Programacion con Python",
-      "id": 4,
+      "place": "Cercado de Lima",
+      "ability": "Programacion Web",
       "period": "Full Time",
-      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
-      "place": "San Isidro,Lima"
-    },
-    {
-      "applicantId": "2",
-      "title": "Desarrollador Backend C#",
-      "description": "Necesitamo un desarrollador backend para el proyecto de una aplicación web que se encuentra en desarrollo.",
-      "salary": "5000",
-      "date": "5/1/2022",
-      "visible": true,
-      "ability": "Programacion con Python",
-      "id": 5,
-      "period": "Full Time",
-      "photo": "https://www.claro.com.pe/personas/wp-content/uploads/2019/12/claro-logo-1024x1024.png",
-      "place": "San Isidro,Lima"
+      "id": 4
     }
   ],
   "postulants": [
@@ -97,7 +80,7 @@
       "email": "jhon@gmail.com",
       "password": "",
       "github_user": "hbcordova",
-      "photo": "https://st4.depositphotos.com/1049680/i/600/depositphotos_287770354-stock-photo-handsome-man-smiling-cheerful-with.jpg"
+      "photo": "https://static1.abc.es/media/summum/2021/10/01/maxi_iglesias-kXKH--620x349@abc.jpeg"
     },
     {
       "id": "2",
@@ -291,24 +274,10 @@
   ],
   "applications": [
     {
-      "status": "accepted",
-      "postulantId": 1,
-      "announcementId": 1,
-      "date": "2022-04-27",
-      "id": 1
-    },
-    {
-      "announcementId": 4,
-      "postulantId": 1,
-      "date": "Mon Jun 13 2022 17:42:20 GMT-0500 (Peru Standard Time)",
-      "status": "pending",
-      "id": 2
-    },
-    {
       "announcementId": 2,
       "postulantId": 1,
       "date": "Mon Jun 13 2022 17:42:56 GMT-0500 (Peru Standard Time)",
-      "status": "pending",
+      "status": "accepted",
       "id": 3
     }
   ],
@@ -320,38 +289,18 @@
       "description": "Somos una empresa dedicada a la elaborarion de productos alimenticios.",
       "ruc": "768 454 321 989",
       "phone": "324 1765 348",
+      "website": "https://www.gloria.com.pe/",
       "photo": "https://i.pinimg.com/originals/84/fe/92/84fe9246996e7c3ab203f05313965906.jpg"
     },
     {
-      "id": 1,
+      "id": 2,
       "applicantId": 2,
       "name": "Movistar SAC",
       "description": "Somos una empresa dedicada a la telefonia y comunicaciones en el Peru.",
       "ruc": "745 454 301 989",
       "phone": "564 1765 128",
+      "website": "https://movistarhogar.pe/",
       "photo": "https://www.adslzone.net/app/uploads-adslzone.net/2016/11/movistar-logo-2017.jpg"
-    }
-  ],
-  "abilities": [
-    {
-      "id": 1,
-      "name": "Programacion con C++",
-      "description": "Programacion usando el lenguaje c++."
-    },
-    {
-      "id": 2,
-      "name": "Programacion con Python",
-      "description": "Programacion usando el lenguaje python."
-    },
-    {
-      "id": 3,
-      "name": "Programacion Web",
-      "description": "Programacion usando html, css y javascript"
-    },
-    {
-      "id": 4,
-      "name": "Programacion Back-end con c# y asp.net",
-      "description": "Programacion de una API usando c# y asp.net"
     }
   ],
   "users": [

@@ -21,7 +21,20 @@
             <p>{{announcement.salary}}</p>
           </div>
         </div>
-        <v-btn v-if="currentUser.userType.toLowerCase() === 'postulant'" :disabled="active" @click="apply" class="text-white mt-4 mb-8 block" color="success">Aplicar</v-btn>
+        <v-btn
+            v-if="currentUser.userType.toLowerCase() === 'postulant' && !active"
+            @click="apply"
+            class="text-white mt-4 mb-8 block"
+            color="success"
+            prepend-icon="mdi-check"
+        >Aplicar</v-btn>
+        <v-btn
+            v-if="currentUser.userType.toLowerCase() === 'postulant' && active"
+            :disabled="!active"
+            class="text-white mt-4 mb-8 block"
+            color="info"
+            prepend-icon="mdi-check"
+        >Ya enviamos tu Perfil</v-btn>
         <p class="mb-4">{{announcement.description}}</p>
         <div class="d-flex align-center mb-8">
           <v-avatar
@@ -30,6 +43,7 @@
               class="mx-4"
           >
             <v-img
+                max-width="100"
                 cover="true"
                 :src="applicant.photo"
                 alt="John"

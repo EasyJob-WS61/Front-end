@@ -66,10 +66,6 @@ export default {
       this.typeUser = user.userType.toLowerCase();
       this.name = user.name + " " + user.lastname;
       this.id = user.id;
-      if (this.typeUser === "postulant")
-        router.push({name: "postulant-home", params: {id: this.id}})
-      else router.push({name: "applicant-home", params: {id: this.id}})
-
     } else {
       router.push({name: "login-account"});
     }

@@ -9,8 +9,8 @@ class ApplicationsService {
     getById(id) {
         return http.get(`${this.resource}/${id}`);
     }
-    getByAnnouncementId(announcementId) {
-        return http.get(`${this.resource}?_expand=postulant&announcementId=${announcementId}`);
+    getByApplicantAndAnnouncementId(applicantId, announcementId) {
+        return http.get(`${this.resource}?applicantId=${applicantId}&announcementId=${announcementId}&_expand=postulant`);
     }
     create(createApplicationDto) {
         return http.post(this.resource, createApplicationDto);

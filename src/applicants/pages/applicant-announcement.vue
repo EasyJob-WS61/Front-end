@@ -36,8 +36,13 @@
             transition="dialog-bottom-transition"
             v-model="confirmDeleted"
             persistent>
-          <v-card max-width="600px" width="90vw" height="auto" max-height="900px" class="px-4 py-8 d-flex flex-column justify-center align-center">
-            <div class="">
+          <v-card max-width="600px" width="90vw" height="auto" max-height="900px" class="d-flex flex-column justify-center align-center">
+            <div class="w-100 mb-4">
+              <v-toolbar color="error">
+                <v-card-title class="text-white">Eliminar Anuncio</v-card-title>
+              </v-toolbar>
+            </div>
+            <div class="align-start">
               <v-card-subtitle>¿Esta seguro que desea eliminar
                 <span class="error pl-1">{{announcementSelected.title}}</span>?
               </v-card-subtitle>
