@@ -24,12 +24,38 @@
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12">
+      <v-col v-if="enterprise === null" cols="12">
         <v-card class="px-2 py-4">
           <v-card-title>Mi empresa</v-card-title>
           <v-card-content class="text-center">
-            <p>¡No se encontro una empresa registrada, <a href="">click aqui</a> para registrar!</p>
+            <p>¡No se encontro una empresa registrada, <a class="text-decoration-underline info" @click="applicantEnterpriseDialog = true;">click aqui</a> para registrar!</p>
           </v-card-content>
+        </v-card>
+      </v-col>
+      <v-col v-else cols="12">
+        <v-card class="px-2 py-4">
+          <v-row>
+            <v-col cols="8" class="d-flex align-content-center">
+              <v-card-title class="p font-weight-bold text-left wight-100"> {{this.enterprise.name}}</v-card-title>
+              <v-btn icon="mdi-pen" color="warning" size="small" class="rounded-lg btn-info"></v-btn>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card class="mt-6 pa-4 d-flex flex-column align-content-space-between">
+          <v-row>
+            <div class="v-col-md-4">
+              <v-img cover="true" :src="this.enterprise.photo"></v-img>
+              <v-btn @click="openSiteWeb(this.enterprise.website)" block="true" color="primary" class="mt-4">Visitar Sitio Web</v-btn>
+            </div>
+            <v-card-content class="v-col-md-8 pa-6 letter font-weight-medium d-flex flex-column justify-center">
+              <p class="font-weight-bold">Descripción</p>
+              <p>{{this.enterprise.description}}</p>
+              <p class="font-weight-bold">RUC</p>
+              <p>{{this.enterprise.ruc}}</p>
+              <p class="font-weight-bold">Telefono</p>
+              <p>{{this.enterprise.phone}}</p>
+            </v-card-content>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -83,15 +109,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="applicantEnterpriseDialog">
+      <applicant-enterprise v-on:close-register-enterprise="closeRegisterEnterprise"></applicant-enterprise>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-import applicantsService from "@/applicants/services/applicants.service";
-
+import applicantsService from "@/applicants/services/applicants.service.js";
+import ApplicantEnterprise from "@/applicants/pages/applicant-enterprise";
+import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
 export default {
   name: "applicant-profile",
+  components: { ApplicantEnterprise },
   data: () => ({
+    applicantEnterpriseDialog: false,
+    enterprise: null,
     actualid: 0,
     dialog: false,
     applicant: {},
@@ -101,7 +134,8 @@ export default {
     photo:"",
     website:"",
     emal:"",
-    password:""
+    password:"",
+    errors: []
   }),
   async created() {
     try {
@@ -114,6 +148,8 @@ export default {
       this.website=this.applicant.website;
       this.emal=this.applicant.email;
       this.password=this.applicant.password;
+      await this.getEnterpriseByApplicantId();
+      console.log(this.enterprise)
     }
     catch (e)
     {
@@ -131,11 +167,28 @@ export default {
       this.nuevo.email=this.emal;
       this.nuevo.password=this.password;
       applicantsService.update(this.actualid,this.nuevo)
+    },
+    closeRegisterEnterprise() {
+      this.applicantEnterpriseDialog = false;
+    },
+    async getEnterpriseByApplicantId() {
+      await EnterpriseService.getByApplicantId(this.applicant.id)
+        .then(response => {
+          this.enterprise = response.data.at(0);
+        })
+        .catch(error => {
+          this.errors.push(error.message);
+        })
+    },
+    openSiteWeb(siteWeb) {
+      window.open(siteWeb, "_blank");
     }
   }
 }
 </script>
 
 <style scoped>
-
+.info {
+  color: #01C4FF;
+}
 </style>

@@ -58,8 +58,8 @@
         <div>
           <v-divider></v-divider>
           <v-card-actions class="d-flex justify-end">
-            <v-btn color="error">Cerrar</v-btn>
-            <v-btn color="secondary">Registrar</v-btn>
+            <v-btn @click="closeRegisterEnterprise" color="error">Cerrar</v-btn>
+            <v-btn @click="registerEnterprise" color="secondary">Registrar</v-btn>
           </v-card-actions>
         </div>
       </v-form>
@@ -68,21 +68,58 @@
 </template>
 
 <script>
+import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+
 export default {
   name: "applicant-enterprise",
   data() {
     return {
-      enterprise: {},
+      enterprise: {
+        name: null,
+        description: null,
+        ruc: null,
+        phone: null,
+        website: null,
+        photo: null,
+      },
+      error: [],
       validate: true,
+      userId: null,
       nameRules: [ v => !!v || 'Name is required', v => (v && v.length <= 50) || 'Name must be less than 50 characters'],
       descriptionRules: [ v => !!v || 'Description is required', v => (v && v.length <= 200) || 'Description must be less than 200 characters'],
     }
   },
-  methods() {
-
+  methods: {
+    closeRegisterEnterprise() {
+      this.$emit("close-register-enterprise");
+    },
+    registerEnterpriseEvent() {
+      this.$emit("registered-enterprise");
+    },
+    async registerEnterprise() {
+      this.enterprise.applicantId = this.userId;
+      await EnterpriseService.create(this.enterprise)
+        .then(response => {
+          this.enterprise = response.data;
+          this.resetRegisterForm();
+          this.registerEnterpriseEvent();
+          this.closeRegisterEnterprise();
+        })
+        .catch(error => {
+          this.errors.push(error.message);
+        })
+    },
+    resetRegisterForm() {
+      this.enterprise.name = null;
+      this.enterprise.description = null;
+      this.enterprise.ruc = null;
+      this.enterprise.phone = null;
+      this.enterprise.website = null;
+      this.enterprise.photo = null;
+    }
   },
   mounted() {
-
+    this.userId = this.$route.params.idUser;
   }
 }
 </script>

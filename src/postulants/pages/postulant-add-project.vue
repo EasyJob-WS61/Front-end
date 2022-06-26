@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import ProjectsService from "../services/projects.service";
-import GithubService from "@/postulants/services/github.service";
+import ProjectsService from "../services/projects.service.js";
+import GithubService from "@/postulants/services/github.service.js";
 export default {
   name: "add-project",
   data() {
