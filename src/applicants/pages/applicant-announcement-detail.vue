@@ -141,7 +141,7 @@
 <script>
 import ApplicantsAnnouncementService from "@/applicants/services/applicants.announcement.service";
 import ApplicantsService from "@/applicants/services/applicants.service";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+import EnterpriseService from "@/announcements/services/enterprise.service.js";
 import ApplicationsService from "@/applicants/services/applications.service";
 export default {
   name: "applicant-announcement-detail",

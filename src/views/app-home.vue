@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import SubscriptionAd from "@/subscription/pages/susbcription-ad";
-import AppAnnouncement from "@/anuncios-postulantes/pages/announcement-list"
+import SubscriptionAd from "@/core/pages/susbcription-ad";
+import AppAnnouncement from "@/announcements/pages/announcement-list"
 export default {
   name: "postulant-home",
   components: {SubscriptionAd, AppAnnouncement}

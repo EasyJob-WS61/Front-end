@@ -95,11 +95,11 @@
 
 <script>
 import router from "@/router";
-import AnnouncementService from "@/applicants/services/applicants.announcement.service";
-import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add";
-import ApplicantService from "@/applicants/services/applicants.service"
-import ApplicantAnnouncementEdit from "@/applicants/pages/applicant-announcement-edit";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+import AnnouncementService from "@/applicants/services/applicants.announcement.service.js";
+import ApplicantAnnouncementAdd from "@/applicants/pages/applicant-announcement-add.vue";
+import ApplicantService from "@/applicants/services/applicants.service.js"
+import ApplicantAnnouncementEdit from "@/applicants/pages/applicant-announcement-edit.vue";
+import EnterpriseService from "@/announcements/services/enterprise.service.js";
 export default {
   name: "applicant-announcement",
   components: {ApplicantAnnouncementEdit, ApplicantAnnouncementAdd},

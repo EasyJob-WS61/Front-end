@@ -72,7 +72,6 @@ export default {
     applicantNavigation: [
       {name: "Mi Perfil", icon: "mdi-account", to: "profile"},
       {name: "Mis Anuncios", icon: "mdi-briefcase", to: "announcement"},
-      {name: "Mi Empresa", icon: "mdi-domain", to: "enterprise"},
       {name: "Cerrar sesión", icon: "mdi-location-exit", to: "close"}
     ]
   }),
@@ -103,7 +102,6 @@ export default {
       } else if (this.typeUser === "applicant") {
         if (option === "profile") router.push({name: 'applicant-profile', params: {idUser: this.currentUser.id }});
         else if (option === "announcement") router.push({name: 'applicant-announcement', params: {idUser: this.currentUser.id }});
-        else if (option === "enterprise") router.push({name: 'applicant-enterprise', params: {idUser: this.currentUser.id }});
         else if (option === "close") this.logout();
       }
     }

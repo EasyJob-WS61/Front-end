@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+import EnterpriseService from "@/announcements/services/enterprise.service.js";
 
 export default {
   name: "applicant-enterprise",

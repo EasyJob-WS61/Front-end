@@ -58,9 +58,9 @@
 </template>
 
 <script>
-import PostulantPremium from "@/subscription/pages/susbcription-ad.vue";
+import PostulantPremium from "@/core/pages/susbcription-ad.vue";
 import PostulantApplicationsService from "@/postulants/services/postulant-applications.service.js";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service.js";
+import EnterpriseService from "@/announcements/services/enterprise.service.js";
 export default {
   name: "postulant-applications",
   components: { PostulantPremium },

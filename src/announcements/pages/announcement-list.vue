@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import AnnouncesService from "../services/announcement.service";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+import AnnouncesService from "../services/announcement.service.js";
+import EnterpriseService from "../services/enterprise.service.js";
 export default {
   name: "postulant-announcement",
   data: () => ({

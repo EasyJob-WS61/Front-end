@@ -118,7 +118,7 @@
 <script>
 import applicantsService from "@/applicants/services/applicants.service.js";
 import ApplicantEnterprise from "@/applicants/pages/applicant-enterprise";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
+import EnterpriseService from "@/announcements/services/enterprise.service";
 export default {
   name: "applicant-profile",
   components: { ApplicantEnterprise },

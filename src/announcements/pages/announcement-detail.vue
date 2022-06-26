@@ -92,10 +92,10 @@
 </template>
 
 <script>
-import AnnouncesService from "../services/announcement.service";
-import EnterpriseService from "@/anuncios-postulantes/services/enterprise.service";
-import ApplicantService from "@/anuncios-postulantes/services/applicant.service";
-import ApplicationService from "@/anuncios-postulantes/services/application.service";
+import AnnouncesService from "../services/announcement.service.js";
+import EnterpriseService from "../services/enterprise.service.js";
+import ApplicantService from "../services/applicant.service.js";
+import ApplicationService from "../services/application.service.js";
 export default {
   name: "DetallesAnuncio",
   data: () => ({

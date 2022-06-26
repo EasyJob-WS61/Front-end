@@ -6,7 +6,6 @@
     <v-btn class="mt-4 text-white" block color="success">Más información</v-btn>
   </div>
 </template>
-
 <script>
 export default {
   name: "postulant-premium",
